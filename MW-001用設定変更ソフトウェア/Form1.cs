@@ -23,6 +23,7 @@ namespace MW_001用設定変更ソフトウェア
         bool TestReading; //起動中
         bool TestWriting;　//確認中
         bool TestSetting;　//書込中
+        bool BOOT;
         bool CITY;
         bool TERM;
         bool ATCH;
@@ -80,6 +81,7 @@ namespace MW_001用設定変更ソフトウェア
             TestReading = false;
             TestWriting = false;
             TestSetting = false;
+            BOOT = false;
             CITY = false;
             TERM = false;
             ATCH = false;
@@ -244,6 +246,28 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     this.Activate();
                     Application.DoEvents();
+                    
+                    if(BOOT == true)
+                    {
+                        DateTime endDT = DateTime.Now;
+                        TimeSpan ts = endDT - startDT;
+
+                        if (ts.TotalSeconds > 50)
+                        {
+                            label_step1.Text = "起動できませんでした。[再起動]";
+                            label_step1.Update();
+                            BOOT = false;
+                            TestReading = false;
+
+                            progressBar1.Value = 32;
+                            button_next.Enabled = false;
+
+                            //COMポート受信開始
+                            TestReading = true;
+                            TestRead();
+                            return;
+                        }
+                    }
 
                     try
                     {
@@ -301,7 +325,8 @@ namespace MW_001用設定変更ソフトウェア
                 if(s.Contains("START TEST"))
                 {
                     progressBar1.Value = 32;
-                    
+                    startDT = DateTime.Now;
+                    BOOT = true;
                     label_step1.Text = "起動中.";
                     label_step1.Update();
                     return;
@@ -546,6 +571,7 @@ namespace MW_001用設定変更ソフトウェア
                         {
                             label_step1.Text = "LTE接続テスト失敗(1)";
                             label_step1.Update();
+                            ATCH = false;
                             TestWriting = false;
                             TestSetting = false;
                             return;
