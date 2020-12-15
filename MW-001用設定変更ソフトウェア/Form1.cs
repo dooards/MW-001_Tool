@@ -25,9 +25,11 @@ namespace MW_001用設定変更ソフトウェア
         bool TestSetting;　//書込中
         bool CITY;
         bool TERM;
+        bool ATCH;
         bool COMREADY;　//COM接続済み
         bool CSVREADY; //CSV読込済み
         bool IDREADY; //全終了
+        DateTime startDT;
 
 
         public Form1()
@@ -80,6 +82,7 @@ namespace MW_001用設定変更ソフトウェア
             TestSetting = false;
             CITY = false;
             TERM = false;
+            ATCH = false;
             COMREADY = false;
             IDREADY = false;
         }
@@ -158,6 +161,8 @@ namespace MW_001用設定変更ソフトウェア
                     button_connect.Text = "切断";
                     label_step1.Text = "接続完了　[次へ]";
                     label_step1.Update();
+                    button_next.Select();
+
 
                     //次のステップを表示
                     progressBar1.Value = 16;
@@ -196,6 +201,8 @@ namespace MW_001用設定変更ソフトウェア
 
         private void button_file_Click(object sender, EventArgs e)
         {
+            TestReading = false;
+
             OpenFileDialog SF = new OpenFileDialog();
 
             SF.FileName = "*.csv";
@@ -317,7 +324,7 @@ namespace MW_001用設定変更ソフトウェア
                     {
                         progressBar1.Value = 32;
                         
-                        label_step1.Text = "SIMエラー。SIMを確認し[再起動]";
+                        label_step1.Text = "SIMエラー。OFFしてSIMを確認後[戻る][再起動]";
                         label_step1.Update();
                         return;　//受信待ち継続
 
@@ -327,6 +334,7 @@ namespace MW_001用設定変更ソフトウェア
                         progressBar1.Value = 48;
                         label_step1.Text = "起動完了 [次へ]";
                         label_step1.Update();
+                        button_next.Select();
 
 
                         //電話番号をテキストボックスへ入れる
@@ -430,7 +438,12 @@ namespace MW_001用設定変更ソフトウェア
                                 IDWrite();
                                 break;
 
-                            case 4:
+                            //case 4:
+                            //    ATTACH();
+                            //    IDWrite();
+                            //    break;
+
+                            case 5:
                                 //終了処理
                                 TestWriting = false;
                                 TestSetting = false;
@@ -449,7 +462,7 @@ namespace MW_001用設定変更ソフトウェア
                     }
                     if (IDREADY == false)
                     {
-                        label_step1.Text = "IDの書込みに失敗しました。[書込][<戻る]";
+                        label_step1.Text = "ID書込か動作確認で失敗しました。[書込][<戻る]";
                         label_step1.Update();
                         button_write.Enabled = true;
                         button_before.Enabled = true;
@@ -476,6 +489,14 @@ namespace MW_001用設定変更ソフトウェア
             }
 
 
+        }
+
+        private void ATTACH()
+        {
+            TestWriting = true;
+            string ATT;
+            ATT = "!!ATTACH" + Environment.NewLine;
+            serialPort1.WriteLine(ATT);
         }
 
         private void CHECKID()
@@ -516,6 +537,23 @@ namespace MW_001用設定変更ソフトウェア
                     this.Activate();
                     Application.DoEvents();
 
+                    if(ATCH == true)
+                    {
+                        DateTime endDT = DateTime.Now;
+                        TimeSpan ts = endDT - startDT;
+
+                        if(ts.TotalSeconds > 20)
+                        {
+                            label_step1.Text = "LTE接続テスト失敗(1)";
+                            label_step1.Update();
+                            TestWriting = false;
+                            TestSetting = false;
+                            return;
+
+                        }
+
+                    }
+
                     try
                     {
                         if (serialPort1.BytesToRead > 0)
@@ -534,6 +572,8 @@ namespace MW_001用設定変更ソフトウェア
                         ForPushReset("書き込みエラー　[戻る]>[リセット]");
 
                     }
+
+
                 }
             }
         }
@@ -553,6 +593,15 @@ namespace MW_001用設定変更ソフトウェア
                 if (s.StartsWith("!!SENSORNO"))
                 {
                     TERM = true;
+                    return;
+                }
+
+                if (s.StartsWith("!!ATTACH"))
+                {
+                    ATCH = true;
+                    startDT = DateTime.Now;
+                    label_step1.Text = "LTE接続テスト開始[タイムアウト20秒]";
+                    label_step1.Update();
                     return;
                 }
 
@@ -597,7 +646,7 @@ namespace MW_001用設定変更ソフトウェア
                     {
                         progressBar1.Value = 80;
                         
-                        label_step1.Text = "市町村コード確認    ";
+                        label_step1.Text = "市町村コード確認済";
                         label_step1.Update();
                         System.Threading.Thread.Sleep(1000);
                         TestWriting = false;
@@ -624,7 +673,7 @@ namespace MW_001用設定変更ソフトウェア
                     {
                         progressBar1.Value = 88;
                         
-                        label_step1.Text = "水位計番号確認    ";
+                        label_step1.Text = "水位計番号確認済";
                         label_step1.Update();
                         System.Threading.Thread.Sleep(1000);
                         TestWriting = false;
@@ -642,17 +691,42 @@ namespace MW_001用設定変更ソフトウェア
                     
 
                 }
+                if (s.StartsWith("ATTACH"))
+                {
+                    string WORD;
+                    WORD = s;
 
+                    if (WORD == "ATTACH OK")
+                    {
+                        progressBar1.Value = 96;
+
+                        label_step1.Text = "LTE接続テスト合格";
+                        label_step1.Update();
+                        System.Threading.Thread.Sleep(1000);
+                        TestWriting = false;
+                        //TestSetting = false; //TEST
+                        return;
+                    }
+                    else if (WORD == "ATTACH ERROR")
+                    {
+                        label_step1.Text = "LTE接続テスト失敗(2)";
+                        label_step1.Update();
+                        TestWriting = false;
+                        TestSetting = false;
+                        return;
+                    }
+
+
+                }
             }
 
 
         }
 
 
-
         private void button_info_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("MW-001用設定変更ソフトウェア V1.00");
+            MessageBox.Show("MW-001用設定変更ソフトウェア V1.30");
         }
 
         private void button_next_Click(object sender, EventArgs e)
@@ -731,8 +805,9 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     label_step1.Text = "接続完了　[次へ]";
                     label_step1.Update();
-                    progressBar1.Value = 24;
+                    progressBar1.Value = 16;
                     button_next.Enabled = true;
+                    button_next.Select();
 
                 }
                 else
@@ -767,16 +842,19 @@ namespace MW_001用設定変更ソフトウェア
                     }
                     else
                     {
-                        //1へ飛ぶ
-                        panel1.Visible = true;
-                        panel2.Visible = false;
+                        //SIMが間違っていた　ID一覧にない　COMはつながっている　途中停止
+                        panel1.Visible = false;
+                        panel2.Visible = true;
                         panel3.Visible = false;
 
-                        progressBar1.Value = 8;
-                        label_step1.Text = "リセットして下さい。[リセット]";
+                        progressBar1.Value = 32;
+                        label_step1.Text = "リスト・SIM・電池残量・アンテナ線の確認後[再起動]";
                         label_step1.Update();
 
-                        button_before.Enabled = false;
+                        //COMポート受信開始
+                        TestReading = true;
+                        TestRead();
+
                     }
 
                 }

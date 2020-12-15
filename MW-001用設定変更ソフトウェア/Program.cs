@@ -13,6 +13,7 @@ namespace MW_001用設定変更ソフトウェア
         /// </summary>
         [STAThread]
         static void Main()
+        
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

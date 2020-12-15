@@ -43,6 +43,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label_step1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox_tell2 = new System.Windows.Forms.TextBox();
             this.button_file = new System.Windows.Forms.Button();
@@ -56,7 +57,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.button_before = new System.Windows.Forms.Button();
             this.button_next = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -68,7 +68,7 @@
             // button_connect
             // 
             this.button_connect.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_connect.Location = new System.Drawing.Point(203, 77);
+            this.button_connect.Location = new System.Drawing.Point(203, 76);
             this.button_connect.Name = "button_connect";
             this.button_connect.Size = new System.Drawing.Size(105, 29);
             this.button_connect.TabIndex = 0;
@@ -88,9 +88,9 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 200);
+            this.progressBar1.Location = new System.Drawing.Point(15, 163);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(320, 40);
+            this.progressBar1.Size = new System.Drawing.Size(314, 40);
             this.progressBar1.TabIndex = 5;
             this.progressBar1.Value = 50;
             // 
@@ -136,7 +136,7 @@
             this.textBox_city.Location = new System.Drawing.Point(102, 41);
             this.textBox_city.Name = "textBox_city";
             this.textBox_city.ReadOnly = true;
-            this.textBox_city.Size = new System.Drawing.Size(50, 29);
+            this.textBox_city.Size = new System.Drawing.Size(54, 29);
             this.textBox_city.TabIndex = 14;
             this.textBox_city.TabStop = false;
             this.textBox_city.Text = "98765";
@@ -148,7 +148,7 @@
             this.textBox_num.Location = new System.Drawing.Point(258, 41);
             this.textBox_num.Name = "textBox_num";
             this.textBox_num.ReadOnly = true;
-            this.textBox_num.Size = new System.Drawing.Size(50, 29);
+            this.textBox_num.Size = new System.Drawing.Size(48, 29);
             this.textBox_num.TabIndex = 15;
             this.textBox_num.TabStop = false;
             this.textBox_num.Text = "1265";
@@ -157,9 +157,9 @@
             // button_end
             // 
             this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_end.Location = new System.Drawing.Point(252, 263);
+            this.button_end.Location = new System.Drawing.Point(257, 209);
             this.button_end.Name = "button_end";
-            this.button_end.Size = new System.Drawing.Size(80, 44);
+            this.button_end.Size = new System.Drawing.Size(72, 40);
             this.button_end.TabIndex = 0;
             this.button_end.Text = "終了";
             this.button_end.UseVisualStyleBackColor = true;
@@ -168,7 +168,7 @@
             // button_reset
             // 
             this.button_reset.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_reset.Location = new System.Drawing.Point(6, 77);
+            this.button_reset.Location = new System.Drawing.Point(6, 76);
             this.button_reset.Name = "button_reset";
             this.button_reset.Size = new System.Drawing.Size(105, 29);
             this.button_reset.TabIndex = 17;
@@ -180,9 +180,9 @@
             // button_info
             // 
             this.button_info.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_info.Location = new System.Drawing.Point(12, 263);
+            this.button_info.Location = new System.Drawing.Point(15, 209);
             this.button_info.Name = "button_info";
-            this.button_info.Size = new System.Drawing.Size(59, 44);
+            this.button_info.Size = new System.Drawing.Size(60, 40);
             this.button_info.TabIndex = 18;
             this.button_info.TabStop = false;
             this.button_info.Text = "INFO";
@@ -207,7 +207,7 @@
             // 
             this.label_step1.AutoSize = true;
             this.label_step1.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label_step1.Location = new System.Drawing.Point(8, 160);
+            this.label_step1.Location = new System.Drawing.Point(8, 139);
             this.label_step1.Name = "label_step1";
             this.label_step1.Size = new System.Drawing.Size(54, 21);
             this.label_step1.TabIndex = 6;
@@ -227,6 +227,16 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "2　ファイル選択と電源ON";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label5.Location = new System.Drawing.Point(6, 44);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(90, 21);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "水位計一覧";
             // 
             // label4
             // 
@@ -282,7 +292,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.Location = new System.Drawing.Point(6, 79);
+            this.label3.Location = new System.Drawing.Point(6, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 21);
             this.label3.TabIndex = 18;
@@ -335,9 +345,9 @@
             // button_before
             // 
             this.button_before.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_before.Location = new System.Drawing.Point(78, 263);
+            this.button_before.Location = new System.Drawing.Point(85, 209);
             this.button_before.Name = "button_before";
-            this.button_before.Size = new System.Drawing.Size(80, 44);
+            this.button_before.Size = new System.Drawing.Size(80, 40);
             this.button_before.TabIndex = 20;
             this.button_before.TabStop = false;
             this.button_before.Text = "<戻る";
@@ -348,30 +358,20 @@
             // 
             this.button_next.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_next.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button_next.Location = new System.Drawing.Point(164, 263);
+            this.button_next.Location = new System.Drawing.Point(171, 209);
             this.button_next.Name = "button_next";
-            this.button_next.Size = new System.Drawing.Size(80, 44);
+            this.button_next.Size = new System.Drawing.Size(80, 40);
             this.button_next.TabIndex = 21;
             this.button_next.TabStop = false;
             this.button_next.Text = "次へ>";
             this.button_next.UseVisualStyleBackColor = true;
             this.button_next.Click += new System.EventHandler(this.button_next_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label5.Location = new System.Drawing.Point(6, 44);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 21);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "水位計一覧";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 321);
+            this.ClientSize = new System.Drawing.Size(344, 261);
             this.Controls.Add(this.label_step1);
             this.Controls.Add(this.button_next);
             this.Controls.Add(this.button_before);
@@ -382,6 +382,7 @@
             this.Controls.Add(this.button_info);
             this.Controls.Add(this.button_end);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MW-001用設定変更ソフトウェア";
             this.Load += new System.EventHandler(this.Form1_Load_1);
             this.groupBox1.ResumeLayout(false);
