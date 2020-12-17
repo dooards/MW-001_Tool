@@ -23,7 +23,7 @@ namespace MW_001用設定変更ソフトウェア
         bool TestReading; //起動中
         bool TestWriting;　//確認中
         bool TestSetting;　//書込中
-        bool BOOT;
+        bool Tout;
         bool CITY;
         bool TERM;
         bool ATCH;
@@ -81,7 +81,7 @@ namespace MW_001用設定変更ソフトウェア
             TestReading = false;
             TestWriting = false;
             TestSetting = false;
-            BOOT = false;
+            Tout = false;
             CITY = false;
             TERM = false;
             ATCH = false;
@@ -247,7 +247,7 @@ namespace MW_001用設定変更ソフトウェア
                     this.Activate();
                     Application.DoEvents();
                     
-                    if(BOOT == true)
+                    if(Tout == true)
                     {
                         DateTime endDT = DateTime.Now;
                         TimeSpan ts = endDT - startDT;
@@ -256,7 +256,7 @@ namespace MW_001用設定変更ソフトウェア
                         {
                             label_step1.Text = "起動できませんでした。[再起動]";
                             label_step1.Update();
-                            BOOT = false;
+                            Tout = false;
                             TestReading = false;
 
                             progressBar1.Value = 32;
@@ -288,6 +288,8 @@ namespace MW_001用設定変更ソフトウェア
 
                     }
                 }
+
+                Tout = false;
 
             }
             else
@@ -326,7 +328,7 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     progressBar1.Value = 32;
                     startDT = DateTime.Now;
-                    BOOT = true;
+                    Tout = true;
                     label_step1.Text = "起動中.";
                     label_step1.Update();
                     return;
@@ -356,22 +358,43 @@ namespace MW_001用設定変更ソフトウェア
                     }
                     else
                     {
-                        progressBar1.Value = 48;
-                        label_step1.Text = "起動完了 [次へ]";
+                        progressBar1.Value = 44;
+                        label_step1.Text = "電話番号取得";
                         label_step1.Update();
-                        button_next.Select();
-
 
                         //電話番号をテキストボックスへ入れる
                         textBox_tell2.ResetText();
                         textBox_tell2.Text = s.Substring(len - 11);
                         textBox_tell2.Update();
 
+
+                        //ADCコマンド
+                        string ADC;
+                        ADC = "!!VATT" + Environment.NewLine;
+                        serialPort1.WriteLine(ADC);
+
                         //次へ進む
-                        TestReading = false;
-                        button_next.Enabled = true;
+                        //TestReading = false;
+                        //button_next.Enabled = true;
                         return;
                     }
+
+                }
+
+                if (s.Contains("ADC="))
+                {
+                    
+                    progressBar1.Value = 48;
+
+                    label_step1.Text = "起動完了　電池電圧：" + s.Substring(4) + "　[次へ]";
+                    label_step1.Update();
+                    button_next.Select();
+
+                    //次へ進む
+                    TestReading = false;
+                    button_next.Enabled = true;
+                    return;
+
 
                 }
             }
@@ -435,6 +458,7 @@ namespace MW_001用設定変更ソフトウェア
             button_write.Enabled = false;
             TestReading = false;
             TestSetting = true;
+            Tout = true;
             int num = 0;
 
             try
@@ -562,7 +586,29 @@ namespace MW_001用設定変更ソフトウェア
                     this.Activate();
                     Application.DoEvents();
 
-                    if(ATCH == true)
+                    if (Tout == true)
+                    {
+                        DateTime endDT = DateTime.Now;
+                        TimeSpan ts = endDT - startDT;
+
+                        if (ts.TotalSeconds > 50)
+                        {
+                            label_step1.Text = "書込みできませんでした。[ケーブル抜け]";
+                            label_step1.Update();
+                            Tout = false;
+                            TestReading = false;
+
+                            progressBar1.Value = 32;
+                            button_next.Enabled = false;
+
+                            //COMポート受信開始
+                            TestReading = true;
+                            TestRead();
+                            return;
+                        }
+                    }
+
+                    if (ATCH == true)
                     {
                         DateTime endDT = DateTime.Now;
                         TimeSpan ts = endDT - startDT;
@@ -601,6 +647,8 @@ namespace MW_001用設定変更ソフトウェア
 
 
                 }
+                Tout = false;
+
             }
         }
 
@@ -874,7 +922,7 @@ namespace MW_001用設定変更ソフトウェア
                         panel3.Visible = false;
 
                         progressBar1.Value = 32;
-                        label_step1.Text = "リスト・SIM・電池残量・アンテナ線の確認後[再起動]";
+                        label_step1.Text = "機器確認後　[再起動]";
                         label_step1.Update();
 
                         //COMポート受信開始
