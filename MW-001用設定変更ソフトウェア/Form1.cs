@@ -193,6 +193,11 @@ namespace MW_001用設定変更ソフトウェア
 
                         switch (num)
                         {
+                            //case 0:
+                            //    ATTACH();
+                            //    IDWrite();
+                            //    break;
+
                             case 1:
                                 WRITECITY();
                                 IDWrite();
@@ -208,12 +213,7 @@ namespace MW_001用設定変更ソフトウェア
                                 IDWrite();
                                 break;
 
-                            //case 4:
-                            //    ATTACH();
-                            //    IDWrite();
-                            //    break;
-
-                            case 5:
+                            case 4:
                                 //終了処理
                                 TestWriting = false;
                                 TestSetting = false;

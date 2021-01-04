@@ -88,9 +88,9 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(15, 163);
+            this.progressBar1.Location = new System.Drawing.Point(15, 165);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(314, 40);
+            this.progressBar1.Size = new System.Drawing.Size(314, 38);
             this.progressBar1.TabIndex = 5;
             this.progressBar1.Value = 50;
             // 
@@ -157,9 +157,9 @@
             // button_end
             // 
             this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_end.Location = new System.Drawing.Point(257, 209);
+            this.button_end.Location = new System.Drawing.Point(258, 212);
             this.button_end.Name = "button_end";
-            this.button_end.Size = new System.Drawing.Size(72, 40);
+            this.button_end.Size = new System.Drawing.Size(78, 40);
             this.button_end.TabIndex = 0;
             this.button_end.Text = "終了";
             this.button_end.UseVisualStyleBackColor = true;
@@ -180,9 +180,9 @@
             // button_info
             // 
             this.button_info.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_info.Location = new System.Drawing.Point(15, 209);
+            this.button_info.Location = new System.Drawing.Point(6, 212);
             this.button_info.Name = "button_info";
-            this.button_info.Size = new System.Drawing.Size(60, 40);
+            this.button_info.Size = new System.Drawing.Size(78, 40);
             this.button_info.TabIndex = 18;
             this.button_info.TabStop = false;
             this.button_info.Text = "INFO";
@@ -345,9 +345,9 @@
             // button_before
             // 
             this.button_before.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_before.Location = new System.Drawing.Point(85, 209);
+            this.button_before.Location = new System.Drawing.Point(90, 212);
             this.button_before.Name = "button_before";
-            this.button_before.Size = new System.Drawing.Size(80, 40);
+            this.button_before.Size = new System.Drawing.Size(78, 40);
             this.button_before.TabIndex = 20;
             this.button_before.TabStop = false;
             this.button_before.Text = "<戻る";
@@ -358,9 +358,9 @@
             // 
             this.button_next.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_next.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button_next.Location = new System.Drawing.Point(171, 209);
+            this.button_next.Location = new System.Drawing.Point(174, 212);
             this.button_next.Name = "button_next";
-            this.button_next.Size = new System.Drawing.Size(80, 40);
+            this.button_next.Size = new System.Drawing.Size(78, 40);
             this.button_next.TabIndex = 21;
             this.button_next.TabStop = false;
             this.button_next.Text = "次へ>";
