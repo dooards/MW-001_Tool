@@ -32,6 +32,8 @@ namespace MW_001用設定変更ソフトウェア
         bool IDREADY; //全終了
         DateTime startDT;
 
+        //StreamWriter LOG = File.CreateText(lo)
+
 
         public Form1()
         {

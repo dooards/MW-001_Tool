@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.button_connect = new System.Windows.Forms.Button();
             this.comboBox_com = new System.Windows.Forms.ComboBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.button_write = new System.Windows.Forms.Button();
             this.textBox_csv = new System.Windows.Forms.TextBox();
             this.textBox_tell = new System.Windows.Forms.TextBox();
@@ -52,17 +51,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.button_before = new System.Windows.Forms.Button();
             this.button_next = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.progressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -85,14 +82,6 @@
             this.comboBox_com.Size = new System.Drawing.Size(302, 29);
             this.comboBox_com.TabIndex = 0;
             this.comboBox_com.TabStop = false;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(15, 165);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(314, 38);
-            this.progressBar1.TabIndex = 5;
-            this.progressBar1.Value = 50;
             // 
             // button_write
             // 
@@ -157,7 +146,7 @@
             // button_end
             // 
             this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_end.Location = new System.Drawing.Point(258, 212);
+            this.button_end.Location = new System.Drawing.Point(607, 242);
             this.button_end.Name = "button_end";
             this.button_end.Size = new System.Drawing.Size(78, 40);
             this.button_end.TabIndex = 0;
@@ -180,7 +169,7 @@
             // button_info
             // 
             this.button_info.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_info.Location = new System.Drawing.Point(6, 212);
+            this.button_info.Location = new System.Drawing.Point(355, 242);
             this.button_info.Name = "button_info";
             this.button_info.Size = new System.Drawing.Size(78, 40);
             this.button_info.TabIndex = 18;
@@ -196,7 +185,7 @@
             this.groupBox1.Controls.Add(this.button_connect);
             this.groupBox1.Controls.Add(this.button_reset);
             this.groupBox1.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(12, 195);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(314, 114);
             this.groupBox1.TabIndex = 0;
@@ -207,7 +196,7 @@
             // 
             this.label_step1.AutoSize = true;
             this.label_step1.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label_step1.Location = new System.Drawing.Point(8, 139);
+            this.label_step1.Location = new System.Drawing.Point(357, 169);
             this.label_step1.Name = "label_step1";
             this.label_step1.Size = new System.Drawing.Size(54, 21);
             this.label_step1.TabIndex = 6;
@@ -221,7 +210,7 @@
             this.groupBox2.Controls.Add(this.button_file);
             this.groupBox2.Controls.Add(this.textBox_csv);
             this.groupBox2.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Location = new System.Drawing.Point(12, 75);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(314, 114);
             this.groupBox2.TabIndex = 2;
@@ -281,7 +270,7 @@
             this.groupBox3.Controls.Add(this.textBox_num);
             this.groupBox3.Controls.Add(this.button_write);
             this.groupBox3.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox3.Location = new System.Drawing.Point(3, 3);
+            this.groupBox3.Location = new System.Drawing.Point(370, 42);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(314, 114);
             this.groupBox3.TabIndex = 3;
@@ -318,34 +307,10 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "市町村コード";
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(320, 124);
-            this.panel1.TabIndex = 1;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.groupBox2);
-            this.panel2.Location = new System.Drawing.Point(12, 12);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(320, 124);
-            this.panel2.TabIndex = 2;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.groupBox3);
-            this.panel3.Location = new System.Drawing.Point(12, 12);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(320, 124);
-            this.panel3.TabIndex = 3;
-            // 
             // button_before
             // 
             this.button_before.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_before.Location = new System.Drawing.Point(90, 212);
+            this.button_before.Location = new System.Drawing.Point(439, 242);
             this.button_before.Name = "button_before";
             this.button_before.Size = new System.Drawing.Size(78, 40);
             this.button_before.TabIndex = 20;
@@ -358,7 +323,7 @@
             // 
             this.button_next.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_next.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button_next.Location = new System.Drawing.Point(174, 212);
+            this.button_next.Location = new System.Drawing.Point(523, 242);
             this.button_next.Name = "button_next";
             this.button_next.Size = new System.Drawing.Size(78, 40);
             this.button_next.TabIndex = 21;
@@ -367,18 +332,41 @@
             this.button_next.UseVisualStyleBackColor = true;
             this.button_next.Click += new System.EventHandler(this.button_next_Click);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.progressBar1,
+            this.toolStripLabel1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 421);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(933, 25);
+            this.toolStrip1.TabIndex = 22;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(200, 22);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(86, 22);
+            this.toolStripLabel1.Text = "toolStripLabel1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 261);
+            this.ClientSize = new System.Drawing.Size(933, 446);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label_step1);
             this.Controls.Add(this.button_next);
             this.Controls.Add(this.button_before);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button_info);
             this.Controls.Add(this.button_end);
             this.Name = "Form1";
@@ -390,9 +378,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -402,7 +389,6 @@
 
         private System.Windows.Forms.Button button_connect;
         private System.Windows.Forms.ComboBox comboBox_com;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button button_write;
         private System.Windows.Forms.TextBox textBox_csv;
         private System.Windows.Forms.TextBox textBox_tell;
@@ -416,9 +402,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Label label_step1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button_before;
         private System.Windows.Forms.Button button_next;
         private System.Windows.Forms.Button button_file;
@@ -428,6 +411,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox_tell2;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripProgressBar progressBar1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     }
 }
 
