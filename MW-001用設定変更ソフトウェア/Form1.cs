@@ -348,7 +348,7 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。[ON]";
                    // toolStripStatusLabel1.Update();
-                    toolStripProgressBar1.Value = 32;
+                    toolStripProgressBar1.Value = 24;
                     button_next.Enabled = false;
                     button_end.Enabled = false;
 
@@ -788,7 +788,7 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     toolStripProgressBar1.Value = 24;
                     
-                    toolStripStatusLabel1.Text = "テストモード起動失敗　[再起動]";
+                    toolStripStatusLabel1.Text = "テストモード起動失敗　[再起動して下さい]";
                     //toolStripStatusLabel1.Update();
 
                     //log
@@ -801,7 +801,7 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     toolStripProgressBar1.Value = 24;
                     
-                    toolStripStatusLabel1.Text = "テストモード起動失敗(2)　[再起動]";
+                    toolStripStatusLabel1.Text = "テストモード起動失敗(2)　[再起動して下さい]";
                     // toolStripStatusLabel1.Update();
 
                     //log

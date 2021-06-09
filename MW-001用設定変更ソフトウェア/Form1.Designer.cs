@@ -38,7 +38,6 @@
             this.textBox_num = new System.Windows.Forms.TextBox();
             this.button_end = new System.Windows.Forms.Button();
             this.button_reset = new System.Windows.Forms.Button();
-            this.button_info = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -70,9 +69,9 @@
             // button_connect
             // 
             this.button_connect.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_connect.Location = new System.Drawing.Point(198, 40);
+            this.button_connect.Location = new System.Drawing.Point(197, 28);
             this.button_connect.Name = "button_connect";
-            this.button_connect.Size = new System.Drawing.Size(100, 40);
+            this.button_connect.Size = new System.Drawing.Size(100, 64);
             this.button_connect.TabIndex = 0;
             this.button_connect.Text = "接続";
             this.button_connect.UseVisualStyleBackColor = true;
@@ -82,9 +81,9 @@
             // 
             this.comboBox_com.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.comboBox_com.FormattingEnabled = true;
-            this.comboBox_com.Location = new System.Drawing.Point(6, 46);
+            this.comboBox_com.Location = new System.Drawing.Point(27, 46);
             this.comboBox_com.Name = "comboBox_com";
-            this.comboBox_com.Size = new System.Drawing.Size(186, 29);
+            this.comboBox_com.Size = new System.Drawing.Size(150, 29);
             this.comboBox_com.TabIndex = 0;
             this.comboBox_com.TabStop = false;
             // 
@@ -151,7 +150,7 @@
             // button_end
             // 
             this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_end.Location = new System.Drawing.Point(328, 133);
+            this.button_end.Location = new System.Drawing.Point(319, 133);
             this.button_end.Name = "button_end";
             this.button_end.Size = new System.Drawing.Size(100, 48);
             this.button_end.TabIndex = 0;
@@ -162,26 +161,14 @@
             // button_reset
             // 
             this.button_reset.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_reset.Location = new System.Drawing.Point(304, 40);
+            this.button_reset.Location = new System.Drawing.Point(304, 28);
             this.button_reset.Name = "button_reset";
-            this.button_reset.Size = new System.Drawing.Size(100, 40);
+            this.button_reset.Size = new System.Drawing.Size(100, 64);
             this.button_reset.TabIndex = 17;
             this.button_reset.TabStop = false;
             this.button_reset.Text = "リセット";
             this.button_reset.UseVisualStyleBackColor = true;
             this.button_reset.Click += new System.EventHandler(this.button_reset_Click);
-            // 
-            // button_info
-            // 
-            this.button_info.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_info.Location = new System.Drawing.Point(12, 133);
-            this.button_info.Name = "button_info";
-            this.button_info.Size = new System.Drawing.Size(58, 48);
-            this.button_info.TabIndex = 18;
-            this.button_info.TabStop = false;
-            this.button_info.Text = "INFO";
-            this.button_info.UseVisualStyleBackColor = true;
-            this.button_info.Click += new System.EventHandler(this.button_info_Click);
             // 
             // groupBox1
             // 
@@ -329,7 +316,7 @@
             // button_before
             // 
             this.button_before.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_before.Location = new System.Drawing.Point(76, 133);
+            this.button_before.Location = new System.Drawing.Point(12, 133);
             this.button_before.Name = "button_before";
             this.button_before.Size = new System.Drawing.Size(120, 48);
             this.button_before.TabIndex = 20;
@@ -342,7 +329,7 @@
             // 
             this.button_next.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_next.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button_next.Location = new System.Drawing.Point(202, 133);
+            this.button_next.Location = new System.Drawing.Point(138, 133);
             this.button_next.Name = "button_next";
             this.button_next.Size = new System.Drawing.Size(120, 48);
             this.button_next.TabIndex = 21;
@@ -365,7 +352,7 @@
             // toolStripProgressBar1
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 19);
             // 
             // toolStripStatusLabel1
             // 
@@ -385,7 +372,6 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button_info);
             this.Controls.Add(this.button_end);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -417,7 +403,6 @@
         private System.Windows.Forms.TextBox textBox_num;
         private System.Windows.Forms.Button button_end;
         private System.Windows.Forms.Button button_reset;
-        private System.Windows.Forms.Button button_info;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
