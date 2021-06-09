@@ -20,7 +20,7 @@ namespace MW_001用設定変更ソフトウェア
         string[] Rxline;
         string filePath;
         string dataIN;
-        bool TestReading; //起動中
+        bool TestReading;  //起動中
         bool TestWriting;　//確認中
         bool TestSetting;　//書込中
         bool Tout;
@@ -28,8 +28,8 @@ namespace MW_001用設定変更ソフトウェア
         bool TERM;
         bool ATCH;
         bool COMREADY;　//COM接続済み
-        bool CSVREADY; //CSV読込済み
-        bool IDREADY; //全終了
+        bool CSVREADY;  //CSV読込済み
+        bool IDREADY;   //全終了
         DateTime startDT;
 
         StreamWriter LOG;
@@ -37,24 +37,23 @@ namespace MW_001用設定変更ソフトウェア
         public Form1()
         {
             InitializeComponent();
-
             testReset();
 
             DateTime start_tool = DateTime.Now;
             string dtn = start_tool.ToString("yyyyMMdd");
             LOG = new StreamWriter(dtn + ".log", true, System.Text.Encoding.Default);
             LOG.WriteLine(start_tool);
-
         }
 
         //フォームの起動
         private void Form1_Load_1(object sender, EventArgs e)
         {
+            //画面表示
             panel2.Visible = false;
             panel3.Visible = false;
 
-            PortSearch();
 
+            PortSearch();
         }
         
         //リセットボタン
@@ -67,8 +66,7 @@ namespace MW_001用設定変更ソフトウェア
                 serialPort1.Close();
                 toolStripProgressBar1.Value = 0;
                 toolStripStatusLabel1.Text = "切断済み";
-               // toolStripStatusLabel1.Update();
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(3000);
             }
 
             testReset();
@@ -84,6 +82,8 @@ namespace MW_001用設定変更ソフトウェア
             {
                 serialPort1.Close();
             }
+
+            System.Threading.Thread.Sleep(1000);
 
             testReset();
             LOG.WriteLine(" ");
@@ -110,30 +110,34 @@ namespace MW_001用設定変更ソフトウェア
                     COMREADY = true;　//接続中
 
                     button_connect.Text = "切断";
-                    toolStripStatusLabel1.Text = "接続完了　[次へ]";
+                    toolStripStatusLabel1.Text = "接続完了";
                    // toolStripStatusLabel1.Update();
-                    button_next.Select();
+
 
 
                     //次のステップを表示
-                    toolStripProgressBar1.Value = 16;
-                    button_next.Enabled = true;
+                    toolStripProgressBar1.Value = 10;
 
                     //log
                     LOG.WriteLine(comboBox_com.Text);
                     LOG.WriteLine(toolStripStatusLabel1.Text);
+
+                    System.Threading.Thread.Sleep(1000);
+                    next_action();
 
                 }
                 catch
                 {
                     //COMポート処理中ににエラーがある場合
                     COMREADY = false;
-                    ForPushReset("ケーブルがありません。(2) [リセット]");
+                    ForPushReset("ケーブルがありません。(2) リセットしてください。");
 
                     //log
                     LOG.WriteLine(toolStripStatusLabel1.Text);
                 }
             }
+
+            /*
             //切断ボタンの場合
             else if (COMREADY == true)
             {
@@ -143,7 +147,6 @@ namespace MW_001用設定変更ソフトウェア
 
                     toolStripProgressBar1.Value = 0;
                     toolStripStatusLabel1.Text = "切断済み";
-                  //  toolStripStatusLabel1.Update();
                     System.Threading.Thread.Sleep(1000);
                 }
 
@@ -157,12 +160,14 @@ namespace MW_001用設定変更ソフトウェア
                 //log
                 LOG.WriteLine(toolStripStatusLabel1.Text);
             }
+            */
         }
 
         //CSVファイルボタン
         private void button_file_Click(object sender, EventArgs e)
         {
             TestReading = false;
+            button_file.Enabled = false;
 
             OpenFileDialog SF = new OpenFileDialog();
 
@@ -181,15 +186,15 @@ namespace MW_001用設定変更ソフトウェア
                 CSVREADY = true;
                 textBox_csv.Text = Path.GetFileName(SF.FileName);
                 filePath = SF.FileName;
-                toolStripProgressBar1.Value = 24;
-                toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。[ON]";
+                toolStripProgressBar1.Value = 20;
+                toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。";
                 // toolStripStatusLabel1.Update();
 
                 //log
                 LOG.WriteLine(SF.FileName);
 
                 //END button cancel
-                button_end.Enabled = false;
+                //button_end.Enabled = false;
                
 
                 //COMポート受信開始
@@ -236,10 +241,10 @@ namespace MW_001用設定変更ソフトウェア
                                 IDWrite();
                                 break;
 
-                            //case 4:
-                            //    ATTACH();
-                            //    IDWrite();
-                            //    break;
+                            case 4:
+                                ATTACH();
+                                IDWrite();
+                                break;
 
                             case 5:
                                 //終了処理
@@ -247,18 +252,14 @@ namespace MW_001用設定変更ソフトウェア
                                 TestSetting = false;
                                 IDREADY = true;
 
-                                
-
-
                                 toolStripProgressBar1.Value = 100;
-                                toolStripStatusLabel1.Text = "水位計ID書込み完了 続けての書込みは[戻る]";
+                                toolStripStatusLabel1.Text = "水位計ID書込み完了 アプリを終了して下さい。";
                                 // toolStripStatusLabel1.Update();
 
                                 //log
                                 LOG.WriteLine(toolStripStatusLabel1.Text);
 
                                 COMREADY = true;
-                                button_before.Enabled = true;
                                 break;
 
                         }
@@ -267,14 +268,13 @@ namespace MW_001用設定変更ソフトウェア
                     }
                     if (IDREADY == false)
                     {
-                        toolStripStatusLabel1.Text = "ID書込か動作確認で失敗しました。[書込][<戻る]";
+                        toolStripStatusLabel1.Text = "ID書込か動作確認で失敗しました。最初から実施願います。";
                         // toolStripStatusLabel1.Update();
 
                         //log
                         LOG.WriteLine(toolStripStatusLabel1.Text);
 
                         button_write.Enabled = true;
-                        button_before.Enabled = true;
                         return;
                     }
 
@@ -283,12 +283,10 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     TestReading = false;
                     COMREADY = false;
-                    ForPushReset("途中停止しました(3)。[戻る]>[リセット]");
+                    ForPushReset("途中停止しました(3)。最初から実施願います。");
 
                     //log
                     LOG.WriteLine(toolStripStatusLabel1.Text);
-
-                    button_before.Enabled = true;
 
                 }
             }
@@ -296,12 +294,10 @@ namespace MW_001用設定変更ソフトウェア
             {
                 TestReading = false;
                 COMREADY = false;
-                ForPushReset("途中停止しました(4)。[戻る]>[リセット]");
+                ForPushReset("途中停止しました(4)。最初から実施願います。");
 
                 //log
                 LOG.WriteLine(toolStripStatusLabel1.Text);
-
-                button_before.Enabled = true;
 
             }
 
@@ -314,8 +310,7 @@ namespace MW_001用設定変更ソフトウェア
             MessageBox.Show("MW-001用設定変更ソフトウェア V1.40");
         }
 
-        //次へボタン
-        private void button_next_Click(object sender, EventArgs e)
+        private void next_action()
         {
             if (panel1.Visible == true)
             {
@@ -323,46 +318,23 @@ namespace MW_001用設定変更ソフトウェア
                 panel2.Visible = true;
                 panel3.Visible = false;
 
-                button_before.Enabled = true;
-
-                if (COMREADY == true)
-                {
-                    button_next.Enabled = true;
-                    button_before.Enabled = true;
-                }
-                else
-                {
-                    button_next.Enabled = false;
-                    button_before.Enabled = true;
-                }
-
                 if (CSVREADY == false)
                 {
                     toolStripStatusLabel1.Text = "接続完了 水位計一覧ファイルを[選択]";
-                   // toolStripStatusLabel1.Update();
-
-                    button_next.Enabled = false;
-
                 }
                 else
                 {
-                    toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。[ON]";
-                   // toolStripStatusLabel1.Update();
-                    toolStripProgressBar1.Value = 24;
-                    button_next.Enabled = false;
-                    button_end.Enabled = false;
+                    toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。";
+                    // toolStripStatusLabel1.Update();
+                    toolStripProgressBar1.Value = 20;
 
                     //COMポート受信開始
                     TestReading = true;
                     TestRead();
-
                 }
-
-
-                
                 return;
-
             }
+
             if (panel2.Visible == true)
             {
                 panel1.Visible = false;
@@ -373,105 +345,11 @@ namespace MW_001用設定変更ソフトウェア
                 textBox_tell.ResetText();
                 textBox_tell.Text = textBox_tell2.Text;
 
-                button_next.Enabled = false;
-                return;
 
+                return;
             }
         }
 
-        //戻るボタン
-        private void button_before_Click(object sender, EventArgs e)
-        {
-            if (panel2.Visible == true)
-            {
-                panel1.Visible = true;
-                panel2.Visible = false;
-                panel3.Visible = false;
-
-                button_before.Enabled = false; //前は1だから
-                button_end.Enabled = true; //ENDボタンは復活
-                TestReading = false; //読込中は止める
-
-                if (COMREADY == true)
-                {
-                    toolStripStatusLabel1.Text = "接続完了　[次へ]";
-                   // toolStripStatusLabel1.Update();
-                    toolStripProgressBar1.Value = 16;
-                    button_next.Enabled = true;
-                    button_next.Select();
-
-                }
-                else
-                {
-                    toolStripStatusLabel1.Text = "リセットして下さい。[リセット]";
-                   // toolStripStatusLabel1.Update();
-                    toolStripProgressBar1.Value = 0;
-                }
-
-                return;
-
-            }
-            if (panel3.Visible == true)
-            {
-                if (COMREADY == true)
-                {
-                    panel1.Visible = false;
-                    panel2.Visible = true;
-                    panel3.Visible = false;
-
-                    if (IDREADY == true)
-                    {
-                        toolStripProgressBar1.Value = 24;
-                        toolStripStatusLabel1.Text = "次の水位計をテストモードで起動して下さい。[ON]";
-                        //   toolStripStatusLabel1.Update();
-
-                        //log
-                        LOG.WriteLine(toolStripStatusLabel1.Text);
-
-                        //button_before.Enabled = false;
-
-                        //COMポート受信開始
-                        TestReading = true;
-                        TestRead();
-                    }
-                    else
-                    {
-                        //SIMが間違っていた　ID一覧にない　COMはつながっている　途中停止
-                        panel1.Visible = false;
-                        panel2.Visible = true;
-                        panel3.Visible = false;
-
-                        toolStripProgressBar1.Value = 32;
-                        toolStripStatusLabel1.Text = "機器確認後　[再起動]";
-                        //  toolStripStatusLabel1.Update();
-
-                        //log
-                        LOG.WriteLine(toolStripStatusLabel1.Text);
-
-                        //COMポート受信開始
-                        TestReading = true;
-                        TestRead();
-
-                    }
-
-                }
-                else
-                {
-                    //1へ飛ぶ
-                    panel1.Visible = true;
-                    panel2.Visible = false;
-                    panel3.Visible = false;
-
-                    toolStripProgressBar1.Value = 8;
-                    toolStripStatusLabel1.Text = "リセットして下さい。[リセット]";
-                  //  toolStripStatusLabel1.Update();
-
-                    button_before.Enabled = false;
-
-                }
-
-            }
-        }
 
         //電話番号取得時処理
         private void textBox_tell_TextChanged(object sender, EventArgs e)
@@ -494,9 +372,9 @@ namespace MW_001用設定変更ソフトウェア
                     {
                         textBox_city.Text = sbuf[1];
                         textBox_num.Text = sbuf[2];
-                        toolStripProgressBar1.Value = 56;
+                        toolStripProgressBar1.Value = 50;
 
-                        toolStripStatusLabel1.Text = "書込みできます。 [書込]";
+                        toolStripStatusLabel1.Text = "書込みできます。";
                         // toolStripStatusLabel1.Update();
 
 
@@ -510,12 +388,10 @@ namespace MW_001用設定変更ソフトウェア
                     else
                     {
 
-                        toolStripStatusLabel1.Text = "このSIMは登録がありません。[<戻る]";
+                        toolStripStatusLabel1.Text = "このSIMは登録がありません。最初から実施願います。";
                         //toolStripStatusLabel1.Update();
-
                         
                         button_write.Enabled = false;
-                        button_before.Enabled = true;
 
                     }
 
@@ -539,14 +415,12 @@ namespace MW_001用設定変更ソフトウェア
         //リセット処理
         private void testReset()
         {
-            //初期値
+            //プログレスバー初期値
             toolStripProgressBar1.Value = 0;
 
             button_connect.Text = "接続";
             button_connect.Enabled = false;
             button_write.Enabled = false;
-            button_before.Enabled = false;
-            button_next.Enabled = false;
 
             //toolStripStatusLabel1.ResetText();
 
@@ -568,28 +442,47 @@ namespace MW_001用設定変更ソフトウェア
         //COMポート検索
         private void PortSearch()
         {
-            //使用可能なCOMポートをコンボボックスへ表示
-            ports = SerialPort.GetPortNames();
-            comboBox_com.Items.AddRange(ports);
 
+            do
+            {
+                //使用可能なCOMポートをコンボボックスへ表示
+                ports = SerialPort.GetPortNames();
+                comboBox_com.Items.AddRange(ports);
+
+
+            } while (ports.Length > 0);
+
+            //ケーブルが見つかった後の処理
+            button_connect.Enabled = true;
+            toolStripProgressBar1.Value = 5;
+            Console.WriteLine(ports);
+
+            //次のアクションの表示
+            toolStripStatusLabel1.Text = "ケーブルを選択し、接続ボタンを押して下さい。";
+
+
+
+/*
             //COMポートの有無で接続ボタンの表示。無い場合は処理を止める。
             if (ports.Length > 0)
             {
                 button_connect.Enabled = true;
-                toolStripProgressBar1.Value = 8;
+                toolStripProgressBar1.Value = 5;
 
                 //次のアクションの表示
                 toolStripStatusLabel1.Text = "ケーブルを選択し、接続ボタンを押して下さい。";
-              //  toolStripStatusLabel1.Update();
-
             }
             else
             {
-                ForPushReset("ケーブルがありません。(1)　リセットしてください。");
+                ForPushReset("ケーブルがありません。(1)　ケーブルを確認しリセットして下さい。");
                 //log
                 LOG.WriteLine(toolStripStatusLabel1.Text);
 
+
+
             }
+*/
+
         }
         
         //リセット前処理
@@ -620,6 +513,7 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     while (TestReading == true)
                     {
+                        button_end.Enabled = false;
                         this.Activate();
                         Application.DoEvents();
 
@@ -628,9 +522,9 @@ namespace MW_001用設定変更ソフトウェア
                             DateTime endDT = DateTime.Now;
                             TimeSpan ts = endDT - startDT;
 
-                            if (ts.TotalSeconds > 50)
+                            if (ts.TotalSeconds > 60)
                             {
-                                toolStripStatusLabel1.Text = "起動できませんでした。[タイムアウト][再起動]";
+                                toolStripStatusLabel1.Text = "タイムアウト　最初から実施してください。";
                                 //  toolStripStatusLabel1.Update();
 
                                 //log
@@ -638,9 +532,9 @@ namespace MW_001用設定変更ソフトウェア
 
                                 Tout = false;
                                 TestReading = false;
+                                button_end.Enabled = true;
 
-                                toolStripProgressBar1.Value = 32;
-                                button_next.Enabled = false;
+                                toolStripProgressBar1.Value = 20;
 
                                 //COMポート受信開始
                                 TestReading = true;
@@ -653,7 +547,7 @@ namespace MW_001用設定変更ソフトウェア
                         {
                             dataIN = serialPort1.ReadExisting();
                             Rxline = dataIN.Split('\n');
-                            this.Invoke(new EventHandler(SerialLog));
+                            this.Invoke(new EventHandler(Booting));
                         }
                     }
                 
@@ -661,14 +555,12 @@ namespace MW_001用設定変更ソフトウェア
                 }
                 catch //ケーブルが抜けた場合
                 {
-
-                    ForPushReset("途中停止しました(1)。[戻る]>[リセット]");
+                    ForPushReset("途中停止しました(1)。最初から実施してください。");
 
                     //log
                     LOG.WriteLine(toolStripStatusLabel1.Text);
 
                     COMREADY = false;
-                    button_before.Enabled = true;
                     return;
 
                 }
@@ -678,13 +570,12 @@ namespace MW_001用設定変更ソフトウェア
             }
             else
             {
-                ForPushReset("途中停止しました(2)。[戻る]>[リセット]");
+                ForPushReset("途中停止しました(2)。最初から実施してください。");
 
                 //log
                 LOG.WriteLine(toolStripStatusLabel1.Text);
 
                 COMREADY = false;
-                button_before.Enabled = true;
                 return;
 
             }
@@ -707,9 +598,9 @@ namespace MW_001用設定変更ソフトウェア
                         DateTime endDT = DateTime.Now;
                         TimeSpan ts = endDT - startDT;
 
-                        if (ts.TotalSeconds > 10)
+                        if (ts.TotalSeconds > 30)
                         {
-                            toolStripStatusLabel1.Text = "書込みできませんでした。[タイムアウト]";
+                            toolStripStatusLabel1.Text = "タイムアウト　再度書き込むか、最初から実施して下さい。";
                             //toolStripStatusLabel1.Update();
 
                             //log
@@ -718,8 +609,6 @@ namespace MW_001用設定変更ソフトウェア
                             Tout = false;
                             TestWriting = true;　//
 
-                            toolStripProgressBar1.Value = 32;
-                            button_next.Enabled = false;
                             button_write.Enabled=true;
 
                             return;
@@ -731,7 +620,7 @@ namespace MW_001用設定変更ソフトウェア
                         DateTime endDTATCH = DateTime.Now;
                         TimeSpan ts = endDTATCH - startDT;
 
-                        if (ts.TotalSeconds > 20)
+                        if (ts.TotalSeconds > 30)
                         {
                             toolStripStatusLabel1.Text = "LTE接続テスト失敗(1)";
                             //toolStripStatusLabel1.Update();
@@ -740,7 +629,7 @@ namespace MW_001用設定変更ソフトウェア
                             LOG.WriteLine(toolStripStatusLabel1.Text);
 
                             ATCH = false;
-                            TestWriting = false;
+                            TestWriting = true;
                             TestSetting = false;
                             return;
 
@@ -762,8 +651,7 @@ namespace MW_001用設定変更ソフトウェア
 
                         COMREADY = false;
                         button_write.Enabled = false;
-                        button_before.Enabled = true;
-                        ForPushReset("書き込みエラー　[戻る]>[リセット]");
+                        ForPushReset("書き込みエラー　最初から実施して下さい。");
                         
                         //log
                         LOG.WriteLine(toolStripStatusLabel1.Text);
@@ -780,15 +668,15 @@ namespace MW_001用設定変更ソフトウェア
 
 
         //Boot時　合否判定
-        private void SerialLog(object sender, EventArgs e)
+        private void Booting(object sender, EventArgs e)
         {
             foreach (string s in Rxline)
             {
                 if(s.Contains("LTE_power off"))
                 {
-                    toolStripProgressBar1.Value = 24;
+                    toolStripProgressBar1.Value = 20;
                     
-                    toolStripStatusLabel1.Text = "テストモード起動失敗　[再起動して下さい]";
+                    toolStripStatusLabel1.Text = "テストモード起動失敗　装置を再起動して下さい。";
                     //toolStripStatusLabel1.Update();
 
                     //log
@@ -797,11 +685,12 @@ namespace MW_001用設定変更ソフトウェア
                     return; //受信待ち継続
                 }
 
+                /*
                 if (s.Contains("6666"))
                 {
-                    toolStripProgressBar1.Value = 24;
+                    toolStripProgressBar1.Value = 20;
                     
-                    toolStripStatusLabel1.Text = "テストモード起動失敗(2)　[再起動して下さい]";
+                    toolStripStatusLabel1.Text = "テストモード起動失敗(2)　[装置再起動]";
                     // toolStripStatusLabel1.Update();
 
                     //log
@@ -809,57 +698,61 @@ namespace MW_001用設定変更ソフトウェア
 
                     return;　//受信待ち継続
                 }
+                */
 
                 if(s.Contains("START TEST"))
                 {
-                    toolStripProgressBar1.Value = 32;
+                    toolStripProgressBar1.Value = 25;
                     startDT = DateTime.Now;
                     Tout = true;
-                    toolStripStatusLabel1.Text = "起動中.";
+                    toolStripStatusLabel1.Text = "起動中..";
                    // toolStripStatusLabel1.Update();
                     return;
                 }
 
                 if (s.Contains("WAKEUP"))
                 {
-                    toolStripProgressBar1.Value = 40;
+                    toolStripProgressBar1.Value = 30;
                     
                     toolStripStatusLabel1.Text = "起動中....";
                   //  toolStripStatusLabel1.Update();
                     return;
                 }
 
-                if (s.Contains("NUM="))
+                if (s.Contains("NUM=0"))
                 {
                     int len = s.Length;
 
-                    if (len < 5)
+                    if (len <= 14)
                     {
-                        toolStripProgressBar1.Value = 32;
+                        toolStripProgressBar1.Value = 35;
                         
-                        toolStripStatusLabel1.Text = "SIMエラー。OFFしてSIMを確認後[戻る][再起動]";
+                        toolStripStatusLabel1.Text = "SIMエラー　SIMを確認し最初からやり直してください。";
                         //toolStripStatusLabel1.Update();
 
                         //log
                         LOG.WriteLine(toolStripStatusLabel1.Text);
 
-                        return;　//受信待ち継続
+                        TestReading = false;
+                        button_end.Enabled = true;
 
                     }
-                    else
+                    else if(len == 15)
                     {
-                        toolStripProgressBar1.Value = 44;
+                        toolStripProgressBar1.Value = 40;
                         toolStripStatusLabel1.Text = "電話番号取得";
-                       // toolStripStatusLabel1.Update();
 
                         //電話番号をテキストボックスへ入れる
                         textBox_tell2.ResetText();
                         textBox_tell2.Text = s.Substring(len - 11);
                         textBox_tell2.Update();
 
+                        System.Threading.Thread.Sleep(1000);
+
                         //log
                         LOG.WriteLine(textBox_tell2.Text);
 
+                        /*
                         //ADCコマンド
                         string ADC;
                         ADC = "!!VATT" + Environment.NewLine;
@@ -867,8 +760,12 @@ namespace MW_001用設定変更ソフトウェア
 
                         //次へ進む
                         //TestReading = false;
-                        //button_next.Enabled = true;
-                        return;
+                        */
+
+                        TestReading = false;
+                        button_end.Enabled = true;
+                        next_action();
+
                     }
 
                 }
@@ -876,7 +773,7 @@ namespace MW_001用設定変更ソフトウェア
                 if (s.Contains("ADC="))
                 {
                     
-                    toolStripProgressBar1.Value = 48;
+                    toolStripProgressBar1.Value = 50;
 
                     toolStripStatusLabel1.Text = "起動完了　電池電圧：" + s.Substring(4) + "　[次へ]";
                     // toolStripStatusLabel1.Update();
@@ -884,18 +781,13 @@ namespace MW_001用設定変更ソフトウェア
                     //log
                     LOG.WriteLine(toolStripStatusLabel1.Text);
 
-                    button_next.Select();
-
 
                     //END button enable
                     button_end.Enabled = true;
 
                     //次へ進む
                     TestReading = false;
-                    button_next.Enabled = true;
                     return;
-
-
                 }
             }
         }
@@ -906,6 +798,7 @@ namespace MW_001用設定変更ソフトウェア
 
             foreach (string s in Rxline)
             {
+                Console.WriteLine(s);
 
                 if (s.StartsWith("!!CITYCODE"))
                 {
@@ -924,7 +817,6 @@ namespace MW_001用設定変更ソフトウェア
                     ATCH = true;
                     startDT = DateTime.Now;
                     toolStripStatusLabel1.Text = "LTE接続テスト開始[タイムアウト20秒]";
-                    //toolStripStatusLabel1.Update();
                     return;
                 }
 
@@ -932,7 +824,7 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     if (CITY == true)
                     {
-                        toolStripProgressBar1.Value = 64;
+                        toolStripProgressBar1.Value = 60;
 
                         toolStripStatusLabel1.Text = "市町村コード書込";
                         //toolStripStatusLabel1.Update();
@@ -947,7 +839,7 @@ namespace MW_001用設定変更ソフトウェア
                     }
                     else if (TERM == true)
                     {
-                        toolStripProgressBar1.Value = 72;
+                        toolStripProgressBar1.Value = 70;
 
                         toolStripStatusLabel1.Text = "水位計番号書込";
                        // toolStripStatusLabel1.Update();
@@ -960,6 +852,7 @@ namespace MW_001用設定変更ソフトウェア
                         TestWriting = false;
                         return;
                     }
+                    //else if()
                     else
                     {
                         TestWriting = false;
@@ -1009,12 +902,12 @@ namespace MW_001用設定変更ソフトウェア
                 if (s.StartsWith("SENSORNO="))
                 {
                     string WORD;
-                    int WORDLEN = s.Length;
+                    //int WORDLEN = s.Length;
                     WORD = s.Substring(9);
 
                     if (WORD == textBox_num.Text)
                     {
-                        toolStripProgressBar1.Value = 88;
+                        toolStripProgressBar1.Value = 90;
 
                         toolStripStatusLabel1.Text = "水位計番号確認済";
                         //  toolStripStatusLabel1.Update();
@@ -1048,11 +941,12 @@ namespace MW_001用設定変更ソフトウェア
                 if (s.StartsWith("ATTACH"))
                 {
                     string WORD;
-                    WORD = s;
+                    WORD = s.Substring(7);
 
-                    if (WORD == "ATTACH OK")
+
+                    if (WORD == "OK")
                     {
-                        toolStripProgressBar1.Value = 96;
+                        toolStripProgressBar1.Value = 95;
 
                         toolStripStatusLabel1.Text = "LTE接続テスト合格";
                         // toolStripStatusLabel1.Update();
@@ -1060,14 +954,13 @@ namespace MW_001用設定変更ソフトウェア
                         //log
                         LOG.WriteLine(toolStripStatusLabel1.Text);
 
-                        System.Threading.Thread.Sleep(1000);
                         TestWriting = false;
                         //TestSetting = false; //TEST
                         return;
                     }
-                    else if (WORD == "ATTACH ERROR")
+                    else if (WORD == "ERROR")
                     {
-                        toolStripStatusLabel1.Text = "LTE接続テスト失敗(2)";
+                        toolStripStatusLabel1.Text = "LTE接続テスト失敗(2)　最初から実施して下さい。";
                         //  toolStripStatusLabel1.Update();
 
                         //log
@@ -1094,6 +987,7 @@ namespace MW_001用設定変更ソフトウェア
             string ATT;
             ATT = "!!ATTACH" + Environment.NewLine;
             serialPort1.WriteLine(ATT);
+            Console.WriteLine(ATT);
         }
 
         //テストコマンド　!!INFO
@@ -1103,6 +997,7 @@ namespace MW_001用設定変更ソフトウェア
             string INFO;
             INFO = "!!INFO" + Environment.NewLine;
             serialPort1.WriteLine(INFO);
+            Console.WriteLine(INFO);
         }
 
         //テストコマンド　!!SENSNO
@@ -1112,6 +1007,7 @@ namespace MW_001用設定変更ソフトウェア
             string SENSORCODE;
             SENSORCODE = "!!SENSORNO=" + textBox_num.Text + Environment.NewLine;
             serialPort1.WriteLine(SENSORCODE);
+            Console.WriteLine(SENSORCODE);
 
         }
 
@@ -1122,6 +1018,7 @@ namespace MW_001用設定変更ソフトウェア
             string CITYCODE;
             CITYCODE = "!!CITYCODE=" + textBox_city.Text + Environment.NewLine;
             serialPort1.WriteLine(CITYCODE);
+            Console.WriteLine(CITYCODE);
 
 
         }

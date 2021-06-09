@@ -52,8 +52,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button_before = new System.Windows.Forms.Button();
-            this.button_next = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -68,7 +66,7 @@
             // 
             // button_connect
             // 
-            this.button_connect.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_connect.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_connect.Location = new System.Drawing.Point(197, 28);
             this.button_connect.Name = "button_connect";
             this.button_connect.Size = new System.Drawing.Size(100, 64);
@@ -89,7 +87,7 @@
             // 
             // button_write
             // 
-            this.button_write.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_write.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_write.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.button_write.Location = new System.Drawing.Point(304, 28);
             this.button_write.Name = "button_write";
@@ -149,8 +147,8 @@
             // 
             // button_end
             // 
-            this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_end.Location = new System.Drawing.Point(319, 133);
+            this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_end.Location = new System.Drawing.Point(319, 348);
             this.button_end.Name = "button_end";
             this.button_end.Size = new System.Drawing.Size(100, 48);
             this.button_end.TabIndex = 0;
@@ -160,7 +158,7 @@
             // 
             // button_reset
             // 
-            this.button_reset.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_reset.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_reset.Location = new System.Drawing.Point(304, 28);
             this.button_reset.Name = "button_reset";
             this.button_reset.Size = new System.Drawing.Size(100, 64);
@@ -233,7 +231,7 @@
             // 
             // button_file
             // 
-            this.button_file.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_file.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_file.Location = new System.Drawing.Point(304, 28);
             this.button_file.Name = "button_file";
             this.button_file.Size = new System.Drawing.Size(100, 64);
@@ -300,7 +298,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.groupBox2);
-            this.panel2.Location = new System.Drawing.Point(12, 12);
+            this.panel2.Location = new System.Drawing.Point(12, 124);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(416, 106);
             this.panel2.TabIndex = 2;
@@ -308,44 +306,19 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.groupBox3);
-            this.panel3.Location = new System.Drawing.Point(12, 12);
+            this.panel3.Location = new System.Drawing.Point(12, 236);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(416, 106);
             this.panel3.TabIndex = 3;
-            // 
-            // button_before
-            // 
-            this.button_before.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_before.Location = new System.Drawing.Point(12, 133);
-            this.button_before.Name = "button_before";
-            this.button_before.Size = new System.Drawing.Size(120, 48);
-            this.button_before.TabIndex = 20;
-            this.button_before.TabStop = false;
-            this.button_before.Text = "<戻る";
-            this.button_before.UseVisualStyleBackColor = true;
-            this.button_before.Click += new System.EventHandler(this.button_before_Click);
-            // 
-            // button_next
-            // 
-            this.button_next.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_next.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button_next.Location = new System.Drawing.Point(138, 133);
-            this.button_next.Name = "button_next";
-            this.button_next.Size = new System.Drawing.Size(120, 48);
-            this.button_next.TabIndex = 21;
-            this.button_next.TabStop = false;
-            this.button_next.Text = "次へ>";
-            this.button_next.UseVisualStyleBackColor = true;
-            this.button_next.Click += new System.EventHandler(this.button_next_Click);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 196);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 406);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(440, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(442, 25);
             this.statusStrip1.TabIndex = 22;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -365,10 +338,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 221);
+            this.ClientSize = new System.Drawing.Size(442, 431);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.button_next);
-            this.Controls.Add(this.button_before);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -410,8 +381,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button_before;
-        private System.Windows.Forms.Button button_next;
         private System.Windows.Forms.Button button_file;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
