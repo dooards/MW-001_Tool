@@ -23,6 +23,7 @@ namespace MW_001用設定変更ソフトウェア
         bool TestReading; //起動中
         bool TestWriting;　//確認中
         bool TestSetting;　//書込中
+        bool END;
         bool Tout;
         bool CITY;
         bool TERM;
@@ -37,37 +38,73 @@ namespace MW_001用設定変更ソフトウェア
         public Form1()
         {
             InitializeComponent();
-
             testReset();
-
             DateTime start_tool = DateTime.Now;
             string dtn = start_tool.ToString("yyyyMMdd");
             LOG = new StreamWriter(dtn + ".log", true, System.Text.Encoding.Default);
             LOG.WriteLine(start_tool);
-
         }
 
         //フォームの起動
         private void Form1_Load_1(object sender, EventArgs e)
         {
-            panel2.Visible = false;
-            panel3.Visible = false;
-
-            PortSearch();
 
         }
-        
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            panel3.Visible = false;
+            this.Update();
+            PortSearch();
+        }
+
+        //COMポート検索
+        private void PortSearch()
+        {
+            button_connect.Text = "接続";
+            toolStripStatusLabel1.Text = "ケーブルのUSB端をパソコンへ接続して下さい。";
+
+            do
+            {
+                Application.DoEvents();
+                if (END == true)
+                {
+                    Console.WriteLine("END");
+                    //Application.Exit();
+                    break;
+                }
+                statusStrip1.Update();
+
+                //使用可能なCOMポートをコンボボックスへ表示
+                ports = SerialPort.GetPortNames();
+            } while (ports.Length == 0);
+
+            //次のアクションの表示
+            if(END == false)
+            {
+                comboBox_com.Items.AddRange(ports);
+                foreach (string port in ports)
+                {
+                    Console.WriteLine(port);
+                }
+                button_connect.Enabled = true;
+                toolStripProgressBar1.Value = 5;
+                toolStripStatusLabel1.Text = "ケーブルを選択し、接続ボタンを押して下さい。";
+                LOG.WriteLine(toolStripStatusLabel1.Text);
+            }
+        }
+
         //リセットボタン
         private void button_reset_Click(object sender, EventArgs e)
         {
             TestReading = false;
+            
 
             if (serialPort1.IsOpen)
             {
                 serialPort1.Close();
                 toolStripProgressBar1.Value = 0;
                 toolStripStatusLabel1.Text = "切断済み";
-               // toolStripStatusLabel1.Update();
                 System.Threading.Thread.Sleep(1000);
             }
 
@@ -78,6 +115,8 @@ namespace MW_001用設定変更ソフトウェア
         //終了ボタン
         private void button_end_Click(object sender, EventArgs e)
         {
+            END = true;
+
             TestReading = false;
 
             if (serialPort1.IsOpen)
@@ -109,19 +148,22 @@ namespace MW_001用設定変更ソフトウェア
                     serialPort1.Open();
                     COMREADY = true;　//接続中
 
-                    button_connect.Text = "切断";
-                    toolStripStatusLabel1.Text = "接続完了　[次へ]";
-                   // toolStripStatusLabel1.Update();
+                    //button_connect.Text = "切断";
+                    toolStripStatusLabel1.Text = "接続完了";
+                    //toolStripStatusLabel1.Update();
                     button_next.Select();
 
 
                     //次のステップを表示
-                    toolStripProgressBar1.Value = 16;
-                    button_next.Enabled = true;
+                    toolStripProgressBar1.Value = 10;
+                    //button_next.Enabled = true;
 
                     //log
                     LOG.WriteLine(comboBox_com.Text);
                     LOG.WriteLine(toolStripStatusLabel1.Text);
+
+                    //次へ遷移
+                    next_action();
 
                 }
                 catch
@@ -134,6 +176,7 @@ namespace MW_001用設定変更ソフトウェア
                     LOG.WriteLine(toolStripStatusLabel1.Text);
                 }
             }
+            /*
             //切断ボタンの場合
             else if (COMREADY == true)
             {
@@ -157,6 +200,7 @@ namespace MW_001用設定変更ソフトウェア
                 //log
                 LOG.WriteLine(toolStripStatusLabel1.Text);
             }
+            */
         }
 
         //CSVファイルボタン
@@ -312,6 +356,58 @@ namespace MW_001用設定変更ソフトウェア
         private void button_info_Click(object sender, EventArgs e)
         {
             MessageBox.Show("MW-001用設定変更ソフトウェア V1.40");
+        }
+
+
+        //次への関数
+        private void next_action()
+        {
+            if (panel1.Visible == true)
+            {
+                panel1.Visible = false;
+                panel2.Visible = true;
+                panel3.Visible = false;
+
+                if (serialPort1.IsOpen)
+                {
+                    if (CSVREADY == false)
+                    {
+                        toolStripStatusLabel1.Text = "接続完了 水位計一覧ファイルを[選択]";
+                        // toolStripStatusLabel1.Update();
+
+                        button_next.Enabled = false;
+
+                    }
+                    /*
+                    else if (CSVREADY == true)
+                    {
+                        toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。[ON]";
+                        // toolStripStatusLabel1.Update();
+                        toolStripProgressBar1.Value = 24;
+                        button_next.Enabled = false;
+                        button_end.Enabled = false;
+
+                        //COMポート受信開始
+                        TestReading = true;
+                        TestRead();
+                    }
+                    */
+                }
+                return;
+            }
+            if (panel2.Visible == true)
+            {
+                panel1.Visible = false;
+                panel2.Visible = false;
+                panel3.Visible = true;
+
+                //表示切替用コピー
+                textBox_tell.ResetText();
+                textBox_tell.Text = textBox_tell2.Text;
+
+                button_next.Enabled = false;
+                return;
+            }
         }
 
         //次へボタン
@@ -548,49 +644,23 @@ namespace MW_001用設定変更ソフトウェア
             button_before.Enabled = false;
             button_next.Enabled = false;
 
-            //toolStripStatusLabel1.ResetText();
-
             textBox_tell2.ResetText();
-
             comboBox_com.Items.Clear();
 
             TestReading = false;
             TestWriting = false;
             TestSetting = false;
+            END = false;
             Tout = false;
             CITY = false;
             TERM = false;
             ATCH = false;
             COMREADY = false;
             IDREADY = false;
+
         }
 
-        //COMポート検索
-        private void PortSearch()
-        {
-            //使用可能なCOMポートをコンボボックスへ表示
-            ports = SerialPort.GetPortNames();
-            comboBox_com.Items.AddRange(ports);
 
-            //COMポートの有無で接続ボタンの表示。無い場合は処理を止める。
-            if (ports.Length > 0)
-            {
-                button_connect.Enabled = true;
-                toolStripProgressBar1.Value = 8;
-
-                //次のアクションの表示
-                toolStripStatusLabel1.Text = "ケーブルを選択し、接続ボタンを押して下さい。";
-              //  toolStripStatusLabel1.Update();
-
-            }
-            else
-            {
-                ForPushReset("ケーブルがありません。(1)　リセットしてください。");
-                //log
-                LOG.WriteLine(toolStripStatusLabel1.Text);
-
-            }
-        }
         
         //リセット前処理
         private void ForPushReset(string Mess)
@@ -1125,6 +1195,7 @@ namespace MW_001用設定変更ソフトウェア
 
 
         }
+
 
     }
 }
