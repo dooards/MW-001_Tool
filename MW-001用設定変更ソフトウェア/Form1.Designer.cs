@@ -33,7 +33,6 @@
             this.comboBox_com = new System.Windows.Forms.ComboBox();
             this.textBox_csv = new System.Windows.Forms.TextBox();
             this.button_end = new System.Windows.Forms.Button();
-            this.button_reset = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -52,8 +51,6 @@
             this.textBox_city = new System.Windows.Forms.TextBox();
             this.textBox_num = new System.Windows.Forms.TextBox();
             this.button_write = new System.Windows.Forms.Button();
-            this.button_before = new System.Windows.Forms.Button();
-            this.button_next = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -109,24 +106,11 @@
             this.button_end.UseVisualStyleBackColor = true;
             this.button_end.Click += new System.EventHandler(this.button_end_Click);
             // 
-            // button_reset
-            // 
-            this.button_reset.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_reset.Location = new System.Drawing.Point(207, 42);
-            this.button_reset.Name = "button_reset";
-            this.button_reset.Size = new System.Drawing.Size(63, 36);
-            this.button_reset.TabIndex = 17;
-            this.button_reset.TabStop = false;
-            this.button_reset.Text = "リセット";
-            this.button_reset.UseVisualStyleBackColor = true;
-            this.button_reset.Click += new System.EventHandler(this.button_reset_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Controls.Add(this.comboBox_com);
             this.groupBox1.Controls.Add(this.button_connect);
-            this.groupBox1.Controls.Add(this.button_reset);
             this.groupBox1.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
@@ -313,31 +297,6 @@
             this.button_write.UseVisualStyleBackColor = true;
             this.button_write.Click += new System.EventHandler(this.button_write_Click);
             // 
-            // button_before
-            // 
-            this.button_before.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_before.Location = new System.Drawing.Point(21, 348);
-            this.button_before.Name = "button_before";
-            this.button_before.Size = new System.Drawing.Size(120, 48);
-            this.button_before.TabIndex = 20;
-            this.button_before.TabStop = false;
-            this.button_before.Text = "<戻る";
-            this.button_before.UseVisualStyleBackColor = true;
-            this.button_before.Click += new System.EventHandler(this.button_before_Click);
-            // 
-            // button_next
-            // 
-            this.button_next.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_next.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button_next.Location = new System.Drawing.Point(147, 348);
-            this.button_next.Name = "button_next";
-            this.button_next.Size = new System.Drawing.Size(120, 48);
-            this.button_next.TabIndex = 21;
-            this.button_next.TabStop = false;
-            this.button_next.Text = "次へ>";
-            this.button_next.UseVisualStyleBackColor = true;
-            this.button_next.Click += new System.EventHandler(this.button_next_Click);
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -368,8 +327,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(440, 436);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.button_next);
-            this.Controls.Add(this.button_before);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -400,15 +357,12 @@
         private System.Windows.Forms.ComboBox comboBox_com;
         private System.Windows.Forms.TextBox textBox_csv;
         private System.Windows.Forms.Button button_end;
-        private System.Windows.Forms.Button button_reset;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button_before;
-        private System.Windows.Forms.Button button_next;
         private System.Windows.Forms.Button button_file;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox_tell2;
