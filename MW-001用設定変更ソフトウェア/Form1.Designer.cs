@@ -35,9 +35,6 @@
             this.button_end = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox_tell2 = new System.Windows.Forms.TextBox();
             this.button_file = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -90,10 +87,10 @@
             // textBox_csv
             // 
             this.textBox_csv.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox_csv.Location = new System.Drawing.Point(102, 28);
+            this.textBox_csv.Location = new System.Drawing.Point(10, 46);
             this.textBox_csv.Name = "textBox_csv";
             this.textBox_csv.ReadOnly = true;
-            this.textBox_csv.Size = new System.Drawing.Size(196, 29);
+            this.textBox_csv.Size = new System.Drawing.Size(288, 29);
             this.textBox_csv.TabIndex = 12;
             this.textBox_csv.TabStop = false;
             this.textBox_csv.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -125,9 +122,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.textBox_tell2);
             this.groupBox2.Controls.Add(this.button_file);
             this.groupBox2.Controls.Add(this.textBox_csv);
             this.groupBox2.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -137,38 +131,6 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "2　ファイル選択と電源ON";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label5.Location = new System.Drawing.Point(6, 31);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 21);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "水位計一覧";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(6, 66);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 21);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "電話番号";
-            // 
-            // textBox_tell2
-            // 
-            this.textBox_tell2.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox_tell2.Location = new System.Drawing.Point(102, 63);
-            this.textBox_tell2.Name = "textBox_tell2";
-            this.textBox_tell2.ReadOnly = true;
-            this.textBox_tell2.Size = new System.Drawing.Size(196, 29);
-            this.textBox_tell2.TabIndex = 19;
-            this.textBox_tell2.TabStop = false;
-            this.textBox_tell2.Text = "02032456598";
-            this.textBox_tell2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // button_file
             // 
@@ -322,8 +284,8 @@
             // 
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(49, 20);
-            this.toolStripStatusLabel1.Text = "Status";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(73, 20);
+            this.toolStripStatusLabel1.Text = "Status204";
             // 
             // menuStrip1
             // 
@@ -350,8 +312,8 @@
             this.ClientSize = new System.Drawing.Size(544, 165);
             this.ControlBox = false;
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel3);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button_end);
@@ -391,9 +353,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button_file;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox_tell2;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
