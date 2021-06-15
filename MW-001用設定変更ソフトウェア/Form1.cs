@@ -62,6 +62,8 @@ namespace MW_001用設定変更ソフトウェア
         {
             panel2.Visible = false;
             panel3.Visible = false;
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
             this.Update();
             PortSearch();
         }
@@ -187,7 +189,7 @@ namespace MW_001用設定変更ソフトウェア
             //SF.InitialDirectory = @"C\:";
             SF.Filter = "CSVファイル|*.csv";
             SF.FilterIndex = 1;
-            SF.Title = "水位計一覧ファイルを選択してください";
+            SF.Title = "水位計一覧ファイルを選択して下さい。";
             SF.RestoreDirectory = true;
             SF.CheckFileExists = true;
             SF.CheckPathExists = true;
@@ -200,7 +202,6 @@ namespace MW_001用設定変更ソフトウェア
                 filePath = SF.FileName;
                 toolStripProgressBar1.Value = 15; //action-3
                 toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。";
-                // toolStripStatusLabel1.Update();
 
                 //log
                 LOG.WriteLine(SF.FileName);
@@ -211,6 +212,13 @@ namespace MW_001用設定変更ソフトウェア
                 //COMポート受信開始
                 TestReading = true; //受信開始FLAG
                 TestRead();
+            }
+            else
+            {
+                textBox_csv.Text = "";
+                TestReading = false;
+                toolStripStatusLabel1.Text = "水位計一覧ファイルを選択してください。";
+                return;
             }
         }
 
@@ -333,7 +341,7 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     if (CSVREADY == false)
                     {
-                        toolStripStatusLabel1.Text = "接続完了 水位計一覧ファイルを[選択]";
+                        toolStripStatusLabel1.Text = "接続完了 水位計一覧ファイルを選択して下さい。";
 
                     }
                 }
