@@ -54,6 +54,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ヘルプHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -61,6 +63,7 @@
             this.panel3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_connect
@@ -97,13 +100,14 @@
             // 
             // button_end
             // 
+            this.button_end.BackColor = System.Drawing.SystemColors.Control;
             this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_end.Location = new System.Drawing.Point(319, 124);
+            this.button_end.Location = new System.Drawing.Point(432, 59);
             this.button_end.Name = "button_end";
-            this.button_end.Size = new System.Drawing.Size(100, 48);
+            this.button_end.Size = new System.Drawing.Size(100, 64);
             this.button_end.TabIndex = 0;
             this.button_end.Text = "終了";
-            this.button_end.UseVisualStyleBackColor = true;
+            this.button_end.UseVisualStyleBackColor = false;
             this.button_end.Click += new System.EventHandler(this.button_end_Click);
             // 
             // groupBox1
@@ -180,7 +184,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(12, 29);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(416, 106);
             this.panel1.TabIndex = 1;
@@ -188,7 +192,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.groupBox2);
-            this.panel2.Location = new System.Drawing.Point(12, 12);
+            this.panel2.Location = new System.Drawing.Point(12, 29);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(416, 106);
             this.panel2.TabIndex = 2;
@@ -196,7 +200,7 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.groupBox3);
-            this.panel3.Location = new System.Drawing.Point(12, 12);
+            this.panel3.Location = new System.Drawing.Point(12, 29);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(416, 106);
             this.panel3.TabIndex = 3;
@@ -302,9 +306,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 176);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 140);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(440, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(544, 25);
             this.statusStrip1.TabIndex = 22;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -321,16 +325,37 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(49, 20);
             this.toolStripStatusLabel1.Text = "Status";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ヘルプHToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(86, 24);
+            this.menuStrip1.TabIndex = 23;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // ヘルプHToolStripMenuItem
+            // 
+            this.ヘルプHToolStripMenuItem.Name = "ヘルプHToolStripMenuItem";
+            this.ヘルプHToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.ヘルプHToolStripMenuItem.Text = "バージョン(&V)";
+            this.ヘルプHToolStripMenuItem.Click += new System.EventHandler(this.ヘルプHToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 201);
+            this.ClientSize = new System.Drawing.Size(544, 165);
+            this.ControlBox = false;
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button_end);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MW-001用設定変更ソフトウェア";
@@ -346,6 +371,8 @@
             this.groupBox3.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,6 +405,8 @@
         private System.Windows.Forms.TextBox textBox_city;
         private System.Windows.Forms.TextBox textBox_num;
         private System.Windows.Forms.Button button_write;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem ヘルプHToolStripMenuItem;
     }
 }
 
