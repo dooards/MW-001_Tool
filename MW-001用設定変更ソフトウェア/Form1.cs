@@ -78,6 +78,7 @@ namespace MW_001用設定変更ソフトウェア
             do
             {
                 this.Update();
+                Application.DoEvents();
                 if (END == true)
                 {
                     Console.WriteLine("END");
@@ -119,8 +120,9 @@ namespace MW_001用設定変更ソフトウェア
         private void button_end_Click(object sender, EventArgs e)
         {
             END = true;
-            Console.WriteLine("END");
             TestReading = false;
+            TestWriting = false;
+            TestSetting = false;
 
             if (serialPort1.IsOpen)
             {
@@ -128,6 +130,7 @@ namespace MW_001用設定変更ソフトウェア
             }
 
             //testReset();
+            Console.WriteLine("END");
             LOG.WriteLine("終了ボタン");
             LOG.Close();
             Application.Exit();
@@ -246,6 +249,7 @@ namespace MW_001用設定変更ソフトウェア
                     while (TestSetting == true)
                     {
                         this.Update();
+                        Application.DoEvents();
 
                         switch (num)
                         {
@@ -453,6 +457,7 @@ namespace MW_001用設定変更ソフトウェア
                     while (TestReading == true)
                     {
                         this.Update();
+                        Application.DoEvents();
 
                         if (END == true)
                         {
@@ -511,7 +516,7 @@ namespace MW_001用設定変更ソフトウェア
                 while (TestWriting == true)
                 {
                     this.Update();
-
+                    Application.DoEvents();
                     if (Tout == true)
                     {
                         DateTime endDT = DateTime.Now;
