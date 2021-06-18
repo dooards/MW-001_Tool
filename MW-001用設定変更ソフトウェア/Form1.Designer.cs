@@ -36,11 +36,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button_file = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -56,9 +53,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ヘルプHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -145,28 +140,6 @@
             this.label5.TabIndex = 19;
             this.label5.Text = "IDファイル";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.button_file);
-            this.groupBox2.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(410, 100);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "2　ファイル選択と電源ON";
-            // 
-            // button_file
-            // 
-            this.button_file.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_file.Location = new System.Drawing.Point(304, 28);
-            this.button_file.Name = "button_file";
-            this.button_file.Size = new System.Drawing.Size(100, 64);
-            this.button_file.TabIndex = 2;
-            this.button_file.Text = "選択";
-            this.button_file.UseVisualStyleBackColor = true;
-            this.button_file.Click += new System.EventHandler(this.button_file_Click);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox1);
@@ -175,18 +148,10 @@
             this.panel1.Size = new System.Drawing.Size(416, 106);
             this.panel1.TabIndex = 1;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.groupBox2);
-            this.panel2.Location = new System.Drawing.Point(12, 141);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(416, 106);
-            this.panel2.TabIndex = 2;
-            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.groupBox3);
-            this.panel3.Location = new System.Drawing.Point(12, 253);
+            this.panel3.Location = new System.Drawing.Point(12, 29);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(416, 106);
             this.panel3.TabIndex = 3;
@@ -292,7 +257,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 367);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 155);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(544, 26);
             this.statusStrip1.TabIndex = 22;
@@ -302,7 +267,7 @@
             // 
             this.toolStripProgressBar1.Enabled = false;
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 20);
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(115, 20);
             // 
             // toolStripStatusLabel1
             // 
@@ -333,12 +298,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 393);
+            this.ClientSize = new System.Drawing.Size(544, 181);
             this.ControlBox = false;
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button_end);
             this.MainMenuStrip = this.menuStrip1;
@@ -349,9 +313,7 @@
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -371,12 +333,9 @@
         private System.Windows.Forms.TextBox textBox_csv;
         private System.Windows.Forms.Button button_end;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button_file;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;

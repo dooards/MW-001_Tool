@@ -26,7 +26,6 @@ namespace MW_001用設定変更ソフトウェア
         string[] ports;
         string[] portNames;
         string[] Rxline;
-        string cableName;
         string tellnum;
         string filePath;
         string dataIN;
@@ -65,7 +64,6 @@ namespace MW_001用設定変更ソフトウェア
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
-            panel2.Visible = false;
             panel3.Visible = false;
             textBox_city.Clear();
             textBox_num.Clear();
@@ -368,7 +366,6 @@ namespace MW_001用設定変更ソフトウェア
             if (panel1.Visible == true)
             {
                 panel1.Visible = false;
-                panel2.Visible = false;
                 panel3.Visible = true;
 
                 if (serialPort1.IsOpen)
@@ -436,7 +433,9 @@ namespace MW_001用設定変更ソフトウェア
                         }
                         else
                         {
-                            button_write.Enabled = false;
+                            ForErrorStop("このSIMは登録がありません(1)。最初からやり直して下さい。", 15, false, false, false, false, false);
+                            SRead.Close();
+                            return;
                         }
                     }
                     SRead.Close();
@@ -448,7 +447,7 @@ namespace MW_001用設定変更ソフトウェア
                 }
                 catch
                 {
-                    ForErrorStop("このSIMは登録がありません。最初からやり直して下さい。", 15, false, false, false, false, false);
+                    ForErrorStop("このSIMは登録がありません(2)。最初からやり直して下さい。", 15, false, false, false, false, false);
                     return;
                 }
             }
@@ -625,7 +624,6 @@ namespace MW_001用設定変更ソフトウェア
 
                 if(s.Contains("START TEST"))
                 {
-                    button_file.Enabled = false;
                     toolStripProgressBar1.Value = 25; //action-5
                     startDT = DateTime.Now;
                     Tout = true;
@@ -888,5 +886,6 @@ namespace MW_001用設定変更ソフトウェア
         {
             MessageBox.Show("MW-001用設定変更ソフトウェア　1.00版" + Environment.NewLine + "Copyright ABIT Co.");
         }
+
     }
 }
