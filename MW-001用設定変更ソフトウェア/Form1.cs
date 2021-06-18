@@ -26,12 +26,15 @@ namespace MW_001用設定変更ソフトウェア
         string[] ports;
         string[] portNames;
         string[] Rxline;
+        string cableName;
         string tellnum;
         string filePath;
         string dataIN;
+        string appPath;
         bool TestReading; //起動中 Rx
         bool TestWriting;　//書込中 Tx
         bool TestSetting;　//確認中 id
+        bool Findcom;
         bool END;
         bool Tout; //タイムインフラグ
         bool CITY;
@@ -64,10 +67,32 @@ namespace MW_001用設定変更ソフトウェア
         {
             panel2.Visible = false;
             panel3.Visible = false;
+            textBox_city.Clear();
+            textBox_num.Clear();
+            textBox_tell.Clear();
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
+
+            //IDファイルの取得
+            appPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            appPath = appPath.Replace("MW-001用設定変更ソフトウェア.exe", "");
+            //Console.WriteLine(appPath);
+            string[] CSVfiles = System.IO.Directory.GetFiles(@appPath, "*.csv", System.IO.SearchOption.AllDirectories);
+
             this.Update();
-            PortSearch();
+            if (CSVfiles.Length == 1)
+            {
+                filePath = CSVfiles[0];
+                LOG.WriteLine(filePath);
+                textBox_csv.Text = Path.GetFileName(CSVfiles[0]);
+                toolStripProgressBar1.Value = 5; //action-0
+                PortSearch();
+            }
+            else
+            {
+                ForErrorStop("IDファイル数が不正です。", 0, false, false, false, false, false);
+                return;
+            }
         }
 
         //COMポート検索
@@ -81,7 +106,7 @@ namespace MW_001用設定変更ソフトウェア
                 Application.DoEvents();
                 if (END == true)
                 {
-                    Console.WriteLine("END");
+                    //Console.WriteLine("END");
                     this.Close();
                     break;
                 }
@@ -89,32 +114,48 @@ namespace MW_001用設定変更ソフトウェア
 
                 //使用可能なCOMポートをコンボボックスへ表示
                 ports = SerialPort.GetPortNames();
-            } while (ports.Length == 0);
 
-            //次のアクションの表示
-            if(END == false)
-            {
-                GetDeviceNames();
-                portNames = GetDeviceNames();
-                if (portNames != null)
+                if (ports.Length > 0)
                 {
-                    foreach (string port in portNames)
+                    GetDeviceNames();
+                    portNames = GetDeviceNames();
+                    comboBox_com.Items.Clear();
+                    //comboBox_com.Items.AddRange(portNames);
+                    /*
+                    if (portNames != null)
                     {
-                        Console.WriteLine(port);
+                        foreach (string port in portNames)
+                        {
+                            //Console.WriteLine(port);
+                        }
+
+                    }
+                    */
+                    for (int i = 0; i < portNames.Length; i++)
+                    {
+                        comboBox_com.Items.Add(portNames[i].Substring(0, portNames[i].IndexOf("(")));
+                        if (portNames[i].StartsWith("USB Serial Port"))
+                        {
+                            comboBox_com.SelectedIndex = i;
+                            Findcom = true;
+                        }
+                    }
+                    if (Findcom == true)
+                    {
+                        //次のアクションの表示
+                        button_connect.Enabled = true;
+                        toolStripProgressBar1.Value = 10; //action-1
+                        toolStripStatusLabel1.Text = "ケーブルを選択し、接続ボタンを押して下さい。";
+                        LOG.WriteLine(toolStripStatusLabel1.Text);　//ケーブル差し込み済
+                    }
+                    else
+                    {
+                        comboBox_com.Items.Clear();
+                        comboBox_com.Items.Add(""); 
                     }
                 }
-                comboBox_com.Items.AddRange(portNames);
-
-                button_connect.Enabled = true;
-                toolStripProgressBar1.Value = 5; //action-1
-                toolStripStatusLabel1.Text = "ケーブルを選択し、接続ボタンを押して下さい。";
-                LOG.WriteLine(toolStripStatusLabel1.Text);　//ケーブル差し込み済
-            }
+            } while (Findcom == false); //ports.Length == 0
         }
-
-
-
-
 
         //終了ボタン
         private void button_end_Click(object sender, EventArgs e)
@@ -130,7 +171,7 @@ namespace MW_001用設定変更ソフトウェア
             }
 
             //testReset();
-            Console.WriteLine("END");
+            //Console.WriteLine("END");
             LOG.WriteLine("終了ボタン");
             LOG.Close();
             Application.Exit();
@@ -145,7 +186,9 @@ namespace MW_001用設定変更ソフトウェア
                 try
                 {
                     //serialport設定
-                    string strValue = comboBox_com.Text.Remove(0, comboBox_com.Text.IndexOf("(") + 1);
+                    //string strValue = comboBox_com.Text.Remove(0, comboBox_com.Text.IndexOf("(") + 1);
+                    string strValue = portNames[comboBox_com.SelectedIndex];
+                    strValue = strValue.Remove(0, strValue.IndexOf("(") + 1);
                     strValue = strValue.Remove(strValue.IndexOf(")"));
 
                     serialPort1.PortName = strValue;
@@ -158,11 +201,11 @@ namespace MW_001用設定変更ソフトウェア
                     serialPort1.Open();
                     COMREADY = true;　//接続中FLAG
                     toolStripStatusLabel1.Text = "接続済み"; 
-                    LOG.WriteLine(comboBox_com.Text);　//COM
+                    LOG.WriteLine(portNames[comboBox_com.SelectedIndex]);　//COM名
                     LOG.WriteLine(toolStripStatusLabel1.Text);　//ケーブル選択済み
 
                     //次のステップを表示
-                    toolStripProgressBar1.Value = 10; //action-2
+                    toolStripProgressBar1.Value = 15; //action-2
 
                     //次へ遷移
                     next_action();
@@ -177,11 +220,12 @@ namespace MW_001用設定変更ソフトウェア
                     }
                     else
                     {
-                        ForErrorStop("ケーブルがありません。(1)", 0, false, false, false, false, false);
+                        ForErrorStop("ケーブルがパソコンから抜けました。", 0, false, false, false, false, false);
                     }
                     
                     comboBox_com.Items.Clear();
                     comboBox_com.Text = "";
+                    Findcom = false;
                     PortSearch();
                 }
             }           
@@ -209,7 +253,7 @@ namespace MW_001用設定変更ソフトウェア
                 CSVREADY = true;
                 textBox_csv.Text = Path.GetFileName(SF.FileName);
                 filePath = SF.FileName;
-                toolStripProgressBar1.Value = 15; //action-3
+                toolStripProgressBar1.Value = 20; //action-3
                 toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。";
 
                 //log
@@ -289,7 +333,7 @@ namespace MW_001用設定変更ソフトウェア
                     if (IDREADY == false)
                     {
                         toolStripStatusLabel1.Text = "ID書込か動作確認で失敗しました。最初から実施して下さい。";
-                        toolStripProgressBar1.Value = 15; //action-3
+                        toolStripProgressBar1.Value = 20; //action-3
 
                         //log
                         LOG.WriteLine(toolStripStatusLabel1.Text);
@@ -304,7 +348,7 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     //ケーブル抜け　書込み前
                     ForErrorStop("途中停止しました(3)。最初から実施して下さい。", 15, false, false, false, false, false);
-                    toolStripProgressBar1.Value = 15; //action-3
+                    toolStripProgressBar1.Value = 20; //action-3
                     return;
                 }
             }
@@ -312,12 +356,10 @@ namespace MW_001用設定変更ソフトウェア
             {
                 //ケーブル抜け　書込み中
                 ForErrorStop("途中停止しました(4)。最初から実施して下さい。", 15, false, false, false, false, false);
-                toolStripProgressBar1.Value = 15; //action-3
+                toolStripProgressBar1.Value = 20; //action-3
                 return;
 
             }
-
-
         }
 
         //次への関数
@@ -326,19 +368,25 @@ namespace MW_001用設定変更ソフトウェア
             if (panel1.Visible == true)
             {
                 panel1.Visible = false;
-                panel2.Visible = true;
-                panel3.Visible = false;
+                panel2.Visible = false;
+                panel3.Visible = true;
 
                 if (serialPort1.IsOpen)
                 {
                     if (CSVREADY == false)
                     {
-                        toolStripStatusLabel1.Text = "接続完了 水位計一覧ファイルを選択して下さい。";
-
+                        toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。";
                     }
                 }
-                return;
+
+                //COMポート受信開始
+                TestReading = true; //受信開始FLAG
+                TestRead();
+
+                //電話番号を表示
+                textBox_tell.Text = tellnum;
             }
+            /*
             if (panel2.Visible == true)
             {
                 panel1.Visible = false;
@@ -350,6 +398,7 @@ namespace MW_001用設定変更ソフトウェア
                 textBox_tell.Text = tellnum; // textBox_tell2.Text;
                 return;
             }
+            */
         }
 
 
@@ -359,46 +408,49 @@ namespace MW_001用設定変更ソフトウェア
             textBox_city.Clear();
             textBox_num.Clear();
 
-            try
+            if(textBox_tell.Text.Length == 11)
             {
-                SRead = new StreamReader(filePath, Encoding.Default);
-
-                string dat;
-                while ((dat = SRead.ReadLine()) != null)
+                try
                 {
-                    string callnum;
-                    string[] sbuf = dat.Split(',');
-                    callnum = sbuf[0];
+                    SRead = new StreamReader(filePath, Encoding.Default);
 
-                    if (textBox_tell.Text == callnum)
+                    string dat;
+                    while ((dat = SRead.ReadLine()) != null)
                     {
-                        textBox_city.Text = sbuf[1];
-                        textBox_num.Text = sbuf[2];
-                        toolStripProgressBar1.Value = 40; //action-8
+                        string callnum;
+                        string[] sbuf = dat.Split(',');
+                        callnum = sbuf[0];
 
-                        toolStripStatusLabel1.Text = "IDの書込みが可能です。";
+                        if (textBox_tell.Text == callnum)
+                        {
+                            textBox_city.Text = sbuf[1];
+                            textBox_num.Text = sbuf[2];
+                            toolStripProgressBar1.Value = 40; //action-8
 
-                        //水位計ID書込み可
-                        button_write.Enabled = true;
-                        TestWriting = true;
-                        break;
+                            toolStripStatusLabel1.Text = "IDの書込みが可能です。";
+
+                            //水位計ID書込み可
+                            button_write.Enabled = true;
+                            TestWriting = true;
+                            break;
+                        }
+                        else
+                        {
+                            button_write.Enabled = false;
+                        }
                     }
-                    else
-                    {
-                        button_write.Enabled = false;
-                    }
+                    SRead.Close();
+
+                    //log
+                    LOG.WriteLine(textBox_city.Text);
+                    LOG.WriteLine(textBox_num.Text);
+                    LOG.WriteLine(toolStripStatusLabel1.Text); //起動済み
                 }
-                SRead.Close();
-
-                //log
-                LOG.WriteLine(textBox_city.Text);
-                LOG.WriteLine(textBox_num.Text);
-                LOG.WriteLine(toolStripStatusLabel1.Text); //起動済み
-            }
-            catch
-            {
-                ForErrorStop("このSIMは登録がありません。最初からやり直して下さい。", 15, false, false, false, false, false);
-                return;
+                catch
+                {
+                    ForErrorStop("このSIMは登録がありません。最初からやり直して下さい。", 15, false, false, false, false, false);
+                    return;
+                }
             }
         }
 
@@ -419,6 +471,7 @@ namespace MW_001用設定変更ソフトウェア
             TestReading = false;
             TestWriting = false;
             TestSetting = false;
+            Findcom = false;
             END = false;
             Tout = false;
             CITY = false;
@@ -454,15 +507,12 @@ namespace MW_001用設定変更ソフトウェア
 
                 try
                 {
-                    while (TestReading == true)
+                    while (TestReading == true && END == false)
                     {
+                        this.Activate();
+                        button_end.Focus();
                         this.Update();
                         Application.DoEvents();
-
-                        if (END == true)
-                        {
-                            break;
-                        }
 
                         if (Tout == true)
                         {
@@ -485,6 +535,7 @@ namespace MW_001用設定変更ソフトウェア
                             Rxline = dataIN.Split('\n');
                             this.Invoke(new EventHandler(SerialLog));
                         }
+
                     } 
                 }
                 catch
@@ -596,7 +647,7 @@ namespace MW_001用設定変更ソフトウェア
                     int len = s.Length;
                     if (len < 15)
                     {
-                        ForErrorStop("SIMエラー。最初から実施して下さい。", 15, false, false, false, false, false); ;
+                        ForErrorStop("SIMが読めません。最初から実施して下さい。", 15, false, false, false, false, false); ;
                         break;　//終わり
                     }
                     else
@@ -821,7 +872,9 @@ namespace MW_001用設定変更ソフトウェア
                 int index = 0;
                 foreach (var name in deviceNameList)
                 {
-                    deviceNames[index++] = name.ToString();
+                    string dev = name.ToString();
+                    //dev = dev.Substring(0, dev.IndexOf("("));
+                    deviceNames[index++] = dev;
                 }
                 return deviceNames;
             }
