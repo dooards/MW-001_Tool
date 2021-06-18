@@ -95,7 +95,7 @@
             // button_end
             // 
             this.button_end.BackColor = System.Drawing.SystemColors.Control;
-            this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_end.Location = new System.Drawing.Point(432, 59);
             this.button_end.Name = "button_end";
             this.button_end.Size = new System.Drawing.Size(100, 64);
@@ -212,7 +212,6 @@
             this.textBox_tell.Size = new System.Drawing.Size(196, 29);
             this.textBox_tell.TabIndex = 13;
             this.textBox_tell.TabStop = false;
-            this.textBox_tell.Text = "02032456598";
             this.textBox_tell.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox_tell.TextChanged += new System.EventHandler(this.textBox_tell_TextChanged);
             // 
@@ -242,7 +241,7 @@
             // 
             // button_write
             // 
-            this.button_write.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_write.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_write.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.button_write.Location = new System.Drawing.Point(304, 28);
             this.button_write.Name = "button_write";
@@ -257,9 +256,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 155);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 151);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(544, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(544, 30);
             this.statusStrip1.TabIndex = 22;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -267,13 +266,13 @@
             // 
             this.toolStripProgressBar1.Enabled = false;
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(115, 20);
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(115, 24);
             // 
             // toolStripStatusLabel1
             // 
-            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(82, 21);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(98, 25);
             this.toolStripStatusLabel1.Text = "Status220";
             // 
             // menuStrip1

@@ -67,7 +67,7 @@ namespace MW_001用設定変更ソフトウェア
             panel3.Visible = false;
             textBox_city.Clear();
             textBox_num.Clear();
-            textBox_tell.Clear();
+
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
 
@@ -383,19 +383,7 @@ namespace MW_001用設定変更ソフトウェア
                 //電話番号を表示
                 textBox_tell.Text = tellnum;
             }
-            /*
-            if (panel2.Visible == true)
-            {
-                panel1.Visible = false;
-                panel2.Visible = false;
-                panel3.Visible = true;
 
-                //表示切替用コピー
-                //textBox_tell.ResetText();
-                textBox_tell.Text = tellnum; // textBox_tell2.Text;
-                return;
-            }
-            */
         }
 
 
@@ -409,7 +397,7 @@ namespace MW_001用設定変更ソフトウェア
             {
                 try
                 {
-                    SRead = new StreamReader(filePath, Encoding.Default);
+                    SRead = new StreamReader(@filePath, Encoding.Default);
 
                     string dat;
                     while ((dat = SRead.ReadLine()) != null)
@@ -431,19 +419,22 @@ namespace MW_001用設定変更ソフトウェア
                             TestWriting = true;
                             break;
                         }
-                        else
-                        {
-                            ForErrorStop("このSIMは登録がありません(1)。最初からやり直して下さい。", 15, false, false, false, false, false);
-                            SRead.Close();
-                            return;
-                        }
                     }
                     SRead.Close();
 
-                    //log
-                    LOG.WriteLine(textBox_city.Text);
-                    LOG.WriteLine(textBox_num.Text);
-                    LOG.WriteLine(toolStripStatusLabel1.Text); //起動済み
+                    if(TestWriting == false)
+                    {
+                        ForErrorStop("このSIMは登録がありません(1)。最初からやり直して下さい。", 15, false, false, false, false, false);
+                        SRead.Close();
+                        return;
+                    }
+                    else
+                    {
+                        //log
+                        LOG.WriteLine(textBox_city.Text);
+                        LOG.WriteLine(textBox_num.Text);
+                        LOG.WriteLine(toolStripStatusLabel1.Text); //起動済み
+                    }
                 }
                 catch
                 {
@@ -484,14 +475,16 @@ namespace MW_001用設定変更ソフトウェア
         //リセット前処理
         private void ForErrorStop(string Mess, int barnum, bool com, bool rx, bool TimeIn, bool tx, bool id)
         {
-            toolStripStatusLabel1.Text = Mess;
-            toolStripProgressBar1.Value = barnum;
-            LOG.WriteLine(toolStripStatusLabel1.Text);
             COMREADY = com;
             TestReading = rx;
             Tout = TimeIn;
             TestWriting = tx;
             TestSetting = id;
+            toolStripProgressBar1.Value = barnum;
+            toolStripStatusLabel1.Text = Mess;
+            LOG.WriteLine(toolStripStatusLabel1.Text);
+
+            this.Update();
             this.Update();
             System.Threading.Thread.Sleep(1000);
         }
@@ -574,7 +567,7 @@ namespace MW_001用設定変更ソフトウェア
 
                         if (ts.TotalSeconds > 20)
                         {
-                            ForErrorStop("書込みできませんでした。最初から実施して下さい。", 15, false, false, false, false, false);
+                            ForErrorStop("書込みできませんでした。最初から実施して下さい。", 40, false, false, false, false, false);
 
                             return;
                         }
@@ -585,9 +578,9 @@ namespace MW_001用設定変更ソフトウェア
                         DateTime endDTATCH = DateTime.Now;
                         TimeSpan ts = endDTATCH - startDT;
 
-                        if (ts.TotalSeconds > 20)
+                        if (ts.TotalSeconds > 60)
                         {
-                            ForErrorStop("LTE接続テスト失敗(1)　最初から実施して下さい。", 15, false, false, false, false, false);
+                            ForErrorStop("LTE接続テスト失敗(1)　最初から実施して下さい。", 40, false, false, false, false, false);
                             ATCH = false;
                             return;
                         }
@@ -652,6 +645,7 @@ namespace MW_001用設定変更ソフトウェア
                     {
                         toolStripProgressBar1.Value = 35; //action-7
                         toolStripStatusLabel1.Text = "電話番号取得";
+                        this.Update();
 
                         //電話番号
                         tellnum = s.Substring(len - 11);
@@ -689,7 +683,7 @@ namespace MW_001用設定変更ソフトウェア
                 {
                     ATCH = true;
                     startDT = DateTime.Now;
-                    toolStripStatusLabel1.Text = "LTE接続テスト開始[タイムアウト20秒]";
+                    toolStripStatusLabel1.Text = "LTE接続テスト開始[タイムアウト60秒]";
                     this.Update();
                     return;
                 }
