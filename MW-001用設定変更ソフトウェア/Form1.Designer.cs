@@ -183,7 +183,7 @@
             // 
             this.button_end.BackColor = System.Drawing.SystemColors.Control;
             this.button_end.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_end.Location = new System.Drawing.Point(568, 73);
+            this.button_end.Location = new System.Drawing.Point(566, 73);
             this.button_end.Name = "button_end";
             this.button_end.Size = new System.Drawing.Size(112, 72);
             this.button_end.TabIndex = 0;
