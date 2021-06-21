@@ -47,6 +47,7 @@ namespace MW_001用設定変更ソフトウェア
         StreamWriter LOG;
         StreamReader SRead;
 
+        //プログラム起動 0
         public Form1()
         {
             InitializeComponent();
@@ -57,11 +58,12 @@ namespace MW_001用設定変更ソフトウェア
             LOG.WriteLine(start_tool);
         }
 
-        //フォームの起動
+        //フォーム起動 1
         private void Form1_Load_1(object sender, EventArgs e)
         {
 
         }
+        //フォーム起動時のファイル検索 2
         private void Form1_Shown(object sender, EventArgs e)
         {
             panel3.Visible = false;
@@ -88,12 +90,12 @@ namespace MW_001用設定変更ソフトウェア
             }
             else
             {
-                ForErrorStop("IDファイル数が不正です。", 0, false, false, false, false, false);
+                ForErrorStop("水位計IDファイルが不正です。", 0, false, false, false, false, false);
                 return;
             }
         }
 
-        //COMポート検索
+        //COMポート検索 3
         private void PortSearch()
         {
             toolStripStatusLabel1.Text = "ケーブルのUSB端をパソコンへ接続して下さい。";
@@ -183,6 +185,9 @@ namespace MW_001用設定変更ソフトウェア
             {
                 try
                 {
+                    toolStripStatusLabel1.Text = "接続中";
+                    this.Update();
+
                     //serialport設定
                     //string strValue = comboBox_com.Text.Remove(0, comboBox_com.Text.IndexOf("(") + 1);
                     string strValue = portNames[comboBox_com.SelectedIndex];
@@ -252,7 +257,7 @@ namespace MW_001用設定変更ソフトウェア
                 textBox_csv.Text = Path.GetFileName(SF.FileName);
                 filePath = SF.FileName;
                 toolStripProgressBar1.Value = 20; //action-3
-                toolStripStatusLabel1.Text = "水位計をテストモードで起動して下さい。";
+                toolStripStatusLabel1.Text = "水位計に磁石を近づけて電源を入れてください。。";
 
                 //log
                 LOG.WriteLine(SF.FileName);
@@ -567,7 +572,7 @@ namespace MW_001用設定変更ソフトウェア
 
                         if (ts.TotalSeconds > 20)
                         {
-                            ForErrorStop("書込みできませんでした。最初から実施して下さい。", 40, false, false, false, false, false);
+                            ForErrorStop("書込みタイムアウト。最初から実施して下さい。", 40, false, false, false, false, false);
 
                             return;
                         }
@@ -597,7 +602,7 @@ namespace MW_001用設定変更ソフトウェア
                     }
                     catch
                     {
-                        ForErrorStop("書き込みエラー　最初から実施して下さい。", 15, false, false, false, false, false);
+                        ForErrorStop("書込み中エラー　最初から実施して下さい。", 15, false, false, false, false, false);
                     }
                 }
                 Tout = false;
@@ -649,6 +654,7 @@ namespace MW_001用設定変更ソフトウェア
 
                         //電話番号
                         tellnum = s.Substring(len - 11);
+                        Console.WriteLine(tellnum);
 
                         //log
                         LOG.WriteLine(tellnum);
@@ -797,6 +803,7 @@ namespace MW_001用設定変更ソフトウェア
             TestWriting = true;
             string ATT;
             ATT = "!!ATTACH" + Environment.NewLine;
+            Console.WriteLine(ATT);
             serialPort1.WriteLine(ATT);
         }
 
@@ -806,6 +813,7 @@ namespace MW_001用設定変更ソフトウェア
             TestWriting = true;
             string INFO;
             INFO = "!!INFO" + Environment.NewLine;
+            Console.WriteLine(INFO);
             serialPort1.WriteLine(INFO);
         }
 
@@ -815,6 +823,7 @@ namespace MW_001用設定変更ソフトウェア
             TestWriting = true;
             string SENSORCODE;
             SENSORCODE = "!!SENSORNO=" + textBox_num.Text + Environment.NewLine;
+            Console.WriteLine(SENSORCODE);
             serialPort1.WriteLine(SENSORCODE);
 
         }
@@ -825,6 +834,7 @@ namespace MW_001用設定変更ソフトウェア
             TestWriting = true;
             string CITYCODE;
             CITYCODE = "!!CITYCODE=" + textBox_city.Text + Environment.NewLine;
+            Console.WriteLine(CITYCODE);
             serialPort1.WriteLine(CITYCODE);
 
 
