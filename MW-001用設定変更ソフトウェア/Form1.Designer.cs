@@ -63,6 +63,7 @@
             // button_connect
             // 
             this.button_connect.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_connect.ForeColor = System.Drawing.Color.Blue;
             this.button_connect.Location = new System.Drawing.Point(381, 41);
             this.button_connect.Name = "button_connect";
             this.button_connect.Size = new System.Drawing.Size(112, 72);
@@ -90,7 +91,6 @@
             this.textBox_csv.Size = new System.Drawing.Size(213, 33);
             this.textBox_csv.TabIndex = 12;
             this.textBox_csv.TabStop = false;
-            this.textBox_csv.Text = "None";
             this.textBox_csv.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox1
