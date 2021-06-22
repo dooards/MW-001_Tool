@@ -44,13 +44,13 @@
             this.ヘルプHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button_end = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button_write = new System.Windows.Forms.Button();
-            this.textBox_num = new System.Windows.Forms.TextBox();
-            this.textBox_city = new System.Windows.Forms.TextBox();
-            this.textBox_tell = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox_tell = new System.Windows.Forms.TextBox();
+            this.textBox_city = new System.Windows.Forms.TextBox();
+            this.textBox_num = new System.Windows.Forms.TextBox();
+            this.button_write = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -132,7 +132,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(24, 29);
+            this.panel1.Location = new System.Drawing.Point(24, 32);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(518, 134);
             this.panel1.TabIndex = 1;
@@ -168,14 +168,15 @@
             this.ヘルプHToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(86, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(108, 29);
             this.menuStrip1.TabIndex = 23;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // ヘルプHToolStripMenuItem
             // 
+            this.ヘルプHToolStripMenuItem.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.ヘルプHToolStripMenuItem.Name = "ヘルプHToolStripMenuItem";
-            this.ヘルプHToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.ヘルプHToolStripMenuItem.Size = new System.Drawing.Size(100, 25);
             this.ヘルプHToolStripMenuItem.Text = "バージョン(&V)";
             this.ヘルプHToolStripMenuItem.Click += new System.EventHandler(this.ヘルプHToolStripMenuItem_Click);
             // 
@@ -208,41 +209,35 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "2　水位計IDの書込";
             // 
-            // button_write
+            // label3
             // 
-            this.button_write.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button_write.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button_write.Location = new System.Drawing.Point(381, 41);
-            this.button_write.Name = "button_write";
-            this.button_write.Size = new System.Drawing.Size(112, 72);
-            this.button_write.TabIndex = 0;
-            this.button_write.Text = "書込";
-            this.button_write.UseVisualStyleBackColor = true;
-            this.button_write.Click += new System.EventHandler(this.button_write_Click);
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label3.Location = new System.Drawing.Point(6, 83);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 25);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "電話番号";
             // 
-            // textBox_num
+            // label2
             // 
-            this.textBox_num.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox_num.Location = new System.Drawing.Point(310, 38);
-            this.textBox_num.Name = "textBox_num";
-            this.textBox_num.ReadOnly = true;
-            this.textBox_num.Size = new System.Drawing.Size(56, 33);
-            this.textBox_num.TabIndex = 15;
-            this.textBox_num.TabStop = false;
-            this.textBox_num.Text = "1265";
-            this.textBox_num.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.Location = new System.Drawing.Point(197, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(107, 25);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "水位計番号";
             // 
-            // textBox_city
+            // label1
             // 
-            this.textBox_city.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox_city.Location = new System.Drawing.Point(119, 38);
-            this.textBox_city.Name = "textBox_city";
-            this.textBox_city.ReadOnly = true;
-            this.textBox_city.Size = new System.Drawing.Size(72, 33);
-            this.textBox_city.TabIndex = 14;
-            this.textBox_city.TabStop = false;
-            this.textBox_city.Text = "98765";
-            this.textBox_city.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Location = new System.Drawing.Point(6, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 25);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "市町村コード";
             // 
             // textBox_tell
             // 
@@ -256,40 +251,46 @@
             this.textBox_tell.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox_tell.TextChanged += new System.EventHandler(this.textBox_tell_TextChanged);
             // 
-            // label1
+            // textBox_city
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(6, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 25);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "市町村コード";
+            this.textBox_city.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox_city.Location = new System.Drawing.Point(119, 38);
+            this.textBox_city.Name = "textBox_city";
+            this.textBox_city.ReadOnly = true;
+            this.textBox_city.Size = new System.Drawing.Size(72, 33);
+            this.textBox_city.TabIndex = 14;
+            this.textBox_city.TabStop = false;
+            this.textBox_city.Text = "98765";
+            this.textBox_city.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label2
+            // textBox_num
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(197, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 25);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "水位計番号";
+            this.textBox_num.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox_num.Location = new System.Drawing.Point(310, 38);
+            this.textBox_num.Name = "textBox_num";
+            this.textBox_num.ReadOnly = true;
+            this.textBox_num.Size = new System.Drawing.Size(56, 33);
+            this.textBox_num.TabIndex = 15;
+            this.textBox_num.TabStop = false;
+            this.textBox_num.Text = "1265";
+            this.textBox_num.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label3
+            // button_write
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.Location = new System.Drawing.Point(6, 83);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 25);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "電話番号";
+            this.button_write.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_write.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.button_write.Location = new System.Drawing.Point(381, 41);
+            this.button_write.Name = "button_write";
+            this.button_write.Size = new System.Drawing.Size(112, 72);
+            this.button_write.TabIndex = 0;
+            this.button_write.Text = "書込";
+            this.button_write.UseVisualStyleBackColor = true;
+            this.button_write.Click += new System.EventHandler(this.button_write_Click);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.groupBox3);
-            this.panel3.Location = new System.Drawing.Point(24, 29);
+            this.panel3.Location = new System.Drawing.Point(24, 32);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(518, 134);
             this.panel3.TabIndex = 3;
