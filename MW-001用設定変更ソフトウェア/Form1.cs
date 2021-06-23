@@ -130,8 +130,12 @@ namespace MW_001用設定変更ソフトウェア
                         if (portNames[i].StartsWith("USB Serial Port"))
                         {
                             comboBox_com.SelectedIndex = i;
-                            Findcom = true;
                         }
+                        else
+                        {
+                            comboBox_com.SelectedIndex = 0;
+                        }
+                        Findcom = true;
                     }
                     if (Findcom == true)
                     {
@@ -273,7 +277,7 @@ namespace MW_001用設定変更ソフトウェア
                 else
                 {
                     //ケーブル抜け　書込み前
-                    ForErrorStop("途中停止しました(3)。アプリを一度閉じて最初から実施して下さい。", 15, false, false);
+                    ForErrorStop("途中停止しました(3)。アプリを閉じて最初から実施して下さい。", 15, false, false);
                     toolStripProgressBar1.Value = 20; //action-3
                     return;
                 }
@@ -281,7 +285,7 @@ namespace MW_001用設定変更ソフトウェア
             catch
             {
                 //ケーブル抜け　書込み中
-                ForErrorStop("途中停止しました(4)。アプリを一度閉じて最初から実施して下さい。", 15, false, false);
+                ForErrorStop("途中停止しました(4)。アプリを閉じて最初から実施して下さい。", 15, false, false);
                 toolStripProgressBar1.Value = 20; //action-3
                 return;
 
@@ -315,7 +319,7 @@ namespace MW_001用設定変更ソフトウェア
             textBox_city.Clear();
             textBox_num.Clear();
 
-            if(textBox_tell.Text.Length == 11)
+            if(textBox_tell.Text.Length == 11) //11
             {
                 try
                 {
@@ -346,7 +350,7 @@ namespace MW_001用設定変更ソフトウェア
 
                     if(TestWriting == false)
                     {
-                        ForErrorStop("このSIMは登録がありません(1)。アプリを一度閉じて最初からやり直して下さい。", 15, false, false);
+                        ForErrorStop("このSIMは登録がありません(1)。最初からやり直して下さい。", 15, false, false);
                         SRead.Close();
                         return;
                     }
@@ -360,9 +364,14 @@ namespace MW_001用設定変更ソフトウェア
                 }
                 catch
                 {
-                    ForErrorStop("このSIMは登録がありません(2)。アプリを一度閉じて最初からやり直して下さい。", 15, false, false);
+                    ForErrorStop("このSIMは登録がありません(2)。最初からやり直して下さい。", 15, false, false);
                     return;
                 }
+            }
+            else
+            {
+                ForErrorStop("このSIMは登録がありません(3)。最初からやり直して下さい。", 15, false, false);
+                return;
             }
         }
 
@@ -423,17 +432,22 @@ namespace MW_001用設定変更ソフトウェア
                             TimeSpan ts = endDT - startDT;
                             //Console.WriteLine(ts);
 
-                            if (ts.TotalSeconds > 60)
+                            if (ts.TotalSeconds > 45)
                             {
                                 //タイムアウトした
-                                ForErrorStop("起動できませんでした。アプリを一度閉じて最初から実施して下さい。", 15, false, false);
+                                ForErrorStop("起動できませんでした。アプリを閉じて最初から実施して下さい。", 15, false, false);
                                 return;
                             }
                         }
                         if (serialPort1.BytesToRead > 0)
                         {
                             dataIN = serialPort1.ReadExisting();
-                            Rxline = dataIN.Split('\n');
+                            //Rxline = dataIN.Split('\n');
+                            Rxline = dataIN.Split(new string[] { "\r\n" }, StringSplitOptions.None); //Split('\n')
+                            foreach (string s in Rxline)
+                            {
+                                Console.WriteLine(s);
+                            }
                             this.Invoke(new EventHandler(SerialLog));
                         }
                     } 
@@ -443,7 +457,7 @@ namespace MW_001用設定変更ソフトウェア
                     if(END != true)
                     {
                         //ケーブルが抜け　起動中
-                        ForErrorStop("途中停止しました(1)。アプリを一度閉じて最初から実施して下さい。", 0, false, false);
+                        ForErrorStop("途中停止しました(1)。アプリを閉じて最初から実施して下さい。", 0, false, false);
                     }
                     return;
                 }
@@ -452,7 +466,7 @@ namespace MW_001用設定変更ソフトウェア
             else
             {
                 //ケーブルが抜け　ファイル読み込み後
-                ForErrorStop("途中停止しました(2)。アプリを一度閉じて最初から実施して下さい。", 0, false, false);
+                ForErrorStop("途中停止しました(2)。アプリを閉じて最初から実施して下さい。", 0, false, false);
                 return;
             }
         }
@@ -493,7 +507,7 @@ namespace MW_001用設定変更ソフトウェア
                             TimeSpan ts = endDTATCH - startDT;
                             //Console.WriteLine(ts);
 
-                            if (ts.TotalSeconds > 30)
+                            if (ts.TotalSeconds > 45)
                             {
                                 if(Retry == true)
                                 {
@@ -507,7 +521,7 @@ namespace MW_001用設定変更ソフトウェア
                                 }
                                 else if(Retry == false)
                                 {
-                                    toolStripStatusLabel1.Text = "もう一度LTE接続テストを実施します。";
+                                    toolStripStatusLabel1.Text = "再度LTE接続テストを実施します。";
                                     LOG.WriteLine(toolStripStatusLabel1.Text);
                                     this.Update();
                                     System.Threading.Thread.Sleep(500);
@@ -523,6 +537,10 @@ namespace MW_001用設定変更ソフトウェア
                         {
                             dataIN = serialPort1.ReadExisting();
                             Rxline = dataIN.Split('\n');
+                            foreach (string s in Rxline)
+                            {
+                                Console.WriteLine(s);
+                            }
                             this.Invoke(new EventHandler(WriteLog));
                         }
                     }
@@ -542,7 +560,7 @@ namespace MW_001用設定変更ソフトウェア
             else
             {
                 //ケーブルが抜け　ファイル読み込み後
-                ForErrorStop("途中停止しました(3)。アプリを一度閉じて最初から実施して下さい。", 0, false, false);
+                ForErrorStop("途中停止しました(3)。アプリを閉じて最初から実施して下さい。", 0, false, false);
                 return;
             }
         }
@@ -564,7 +582,7 @@ namespace MW_001用設定変更ソフトウェア
                     startDT = DateTime.Now; //時間取得
                     Console.WriteLine(startDT);
                     Tout = true; //タイマー起動
-                    toolStripStatusLabel1.Text = "起動開始 [起動完了まで34秒] [強制終了60秒]";
+                    toolStripStatusLabel1.Text = "起動開始 [起動完了まで35秒] [強制終了45秒]";
                     LOG.WriteLine(toolStripStatusLabel1.Text);　//テストモード起動確認
                     return;
                 }
@@ -580,9 +598,10 @@ namespace MW_001用設定変更ソフトウェア
                 if (s.Contains("NUM=0"))
                 {
                     int len = s.Length;
+                    Console.WriteLine(len);
                     if (len < 15)
                     {
-                        ForErrorStop("SIMが読めません。アプリを一度閉じて最初から実施して下さい。", 15, false, false);
+                        ForErrorStop("SIMが読めません。最初から実施して下さい。", 15, false, false);
                         break;　//終わり
                     }
                     else
@@ -593,7 +612,8 @@ namespace MW_001用設定変更ソフトウェア
                         this.Update();
 
                         //電話番号
-                        tellnum = s.Substring(len - 11);
+                        tellnum = s.Substring(len - 12); //11
+                        tellnum = tellnum.Remove(11);
                         Console.WriteLine(tellnum + Environment.NewLine);
 
                         //log
@@ -625,7 +645,7 @@ namespace MW_001用設定変更ソフトウェア
                 }
                 if (s.StartsWith("!!ATTACH"))
                 {
-                    toolStripStatusLabel1.Text = "LTE接続テスト開始 [強制終了30秒]";
+                    toolStripStatusLabel1.Text = "LTE接続テスト開始 [強制終了45秒]";
                     this.Update();
                     return;
                 }
@@ -671,7 +691,7 @@ namespace MW_001用設定変更ソフトウェア
                     }
                     else
                     {
-                        ForErrorStop("市町村コード確認エラー　アプリを一度閉じて最初から実施して下さい。", 40, false, false);
+                        ForErrorStop("市町村コード確認エラー　アプリを閉じて最初から実施して下さい。", 40, false, false);
                         return;
                     }
                 }
@@ -692,7 +712,7 @@ namespace MW_001用設定変更ソフトウェア
                     }
                     else
                     {
-                        ForErrorStop("水位計番号確認エラー　アプリを一度閉じて最初から実施して下さい。", 40, false, false);
+                        ForErrorStop("水位計番号確認エラー　アプリを閉じて最初から実施して下さい。", 40, false, false);
                         return;
                     }
                 }
@@ -716,13 +736,13 @@ namespace MW_001用設定変更ソフトウェア
                     {
                         if (Retry == true)
                         {
-                            string eName = "LTE接続テスト失敗(1)　アプリを一度閉じて最初から実施して下さい。";
+                            string eName = "LTE接続テスト失敗(1)　アプリを閉じて最初から実施して下さい。";
                             ForErrorStop(eName, 40, false, false);
                             return;
                         }
                         else if (Retry == false)
                         {
-                            toolStripStatusLabel1.Text = "もう一度LTE接続テストを実施します。";
+                            toolStripStatusLabel1.Text = "もうLTE接続テストを実施します。";
                             LOG.WriteLine(toolStripStatusLabel1.Text);
                             this.Update();
                             System.Threading.Thread.Sleep(500);
@@ -743,7 +763,7 @@ namespace MW_001用設定変更ソフトウェア
             TestReading = true;
             string ATT;
             ATT = "!!ATTACH" + Environment.NewLine;
-            Console.WriteLine(ATT);
+            //Console.WriteLine(ATT);
             serialPort1.WriteLine(ATT);
             ATCH = true;
             startDT = DateTime.Now;
@@ -755,7 +775,7 @@ namespace MW_001用設定変更ソフトウェア
             TestReading = true;
             string INFO;
             INFO = "!!INFO" + Environment.NewLine;
-            Console.WriteLine(INFO);
+            //Console.WriteLine(INFO);
             serialPort1.WriteLine(INFO);
             Tout = true;
             startDT = DateTime.Now;
@@ -767,7 +787,7 @@ namespace MW_001用設定変更ソフトウェア
             TestReading = true;
             string SENSORCODE;
             SENSORCODE = "!!SENSORNO=" + textBox_num.Text + Environment.NewLine;
-            Console.WriteLine(SENSORCODE);
+            //Console.WriteLine(SENSORCODE);
             serialPort1.WriteLine(SENSORCODE);
             Tout = true;
             startDT = DateTime.Now;
@@ -779,7 +799,7 @@ namespace MW_001用設定変更ソフトウェア
             TestReading = true;
             string CITYCODE;
             CITYCODE = "!!CITYCODE=" + textBox_city.Text + Environment.NewLine;
-            Console.WriteLine(CITYCODE);
+            //Console.WriteLine(CITYCODE);
             serialPort1.WriteLine(CITYCODE);
             Tout = true;
             startDT = DateTime.Now;
