@@ -441,9 +441,9 @@ namespace MW_001用設定変更ソフトウェア
                         }
                         if (serialPort1.BytesToRead > 0)
                         {
-                            dataIN = serialPort1.ReadExisting();
+                            dataIN = serialPort1.ReadLine();//ReadExisting();
                             //Rxline = dataIN.Split('\n');
-                            Rxline = dataIN.Split(new string[] { "\r\n" }, StringSplitOptions.None); //Split('\n')
+                            Rxline = dataIN.Split(new string[] { "\n" }, StringSplitOptions.None); //Split('\n')
                             foreach (string s in Rxline)
                             {
                                 Console.WriteLine(s);
@@ -612,8 +612,8 @@ namespace MW_001用設定変更ソフトウェア
                         this.Update();
 
                         //電話番号
-                        tellnum = s.Substring(len - 12); //11
-                        tellnum = tellnum.Remove(11);
+                        tellnum = s.Substring(len - 11);
+                        //tellnum = tellnum.Remove(11);
                         Console.WriteLine(tellnum + Environment.NewLine);
 
                         //log
@@ -676,31 +676,26 @@ namespace MW_001用設定変更ソフトウェア
                 }
                 if (s.StartsWith("CITYCODE="))
                 {
-                    string WORD;
-                    WORD = s.Substring(9);
+                    string CCODE;
+                    string SENNO;
+                    CCODE = Rxline[0].Substring(9);
+                    SENNO = Rxline[1].Substring(9);
 
-                    if (WORD == textBox_city.Text)
+                    if (CCODE == textBox_city.Text)
                     {
                         toolStripProgressBar1.Value = 70; //action-11
                         toolStripStatusLabel1.Text = "市町村コード確認";
                         LOG.WriteLine(toolStripStatusLabel1.Text); //INFO
                         this.Update();
                         System.Threading.Thread.Sleep(500);
-                        TestReading = false;
-                        return;
                     }
                     else
                     {
                         ForErrorStop("市町村コード確認エラー　アプリを閉じて最初から実施して下さい。", 40, false, false);
                         return;
                     }
-                }
-                if (s.StartsWith("SENSORNO="))
-                {
-                    string WORD;
-                    WORD = s.Substring(9);
 
-                    if (WORD == textBox_num.Text)
+                    if (SENNO == textBox_num.Text)
                     {
                         toolStripProgressBar1.Value = 80; //action-12
                         toolStripStatusLabel1.Text = "水位計番号確認";
@@ -725,7 +720,7 @@ namespace MW_001用設定変更ソフトウェア
                     {
                         toolStripProgressBar1.Value = 90; //action-13
                         toolStripStatusLabel1.Text = "LTE接続テスト合格";
-                        Console.WriteLine(WORD + Environment.NewLine);
+                        //Console.WriteLine(WORD);
                         this.Update();
                         LOG.WriteLine(toolStripStatusLabel1.Text);　//ATTACH
                         System.Threading.Thread.Sleep(750);
@@ -798,7 +793,7 @@ namespace MW_001用設定変更ソフトウェア
         {
             TestReading = true;
             string CITYCODE;
-            CITYCODE = "!!CITYCODE=" + textBox_city.Text + Environment.NewLine;
+            CITYCODE = "!!CITYCODE=" + textBox_city.Text + "\r\n";
             //Console.WriteLine(CITYCODE);
             serialPort1.WriteLine(CITYCODE);
             Tout = true;
