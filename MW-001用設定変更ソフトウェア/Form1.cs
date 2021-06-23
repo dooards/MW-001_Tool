@@ -87,7 +87,7 @@ namespace MW_001用設定変更ソフトウェア
                 toolStripProgressBar1.Value = 5; //action-0
                 toolStripStatusLabel1.Text = "水位計IDファイルが読込まれました。";
                 this.Update();
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(500);
                 PortSearch();
             }
             else
@@ -536,6 +536,7 @@ namespace MW_001用設定変更ソフトウェア
                         if (serialPort1.BytesToRead > 0)
                         {
                             dataIN = serialPort1.ReadExisting();
+                            //dataIN += serialPort1.ReadExisting();
                             Rxline = dataIN.Split('\n');
                             foreach (string s in Rxline)
                             {
@@ -633,23 +634,23 @@ namespace MW_001用設定変更ソフトウェア
         {
             foreach (string s in Rxline)
             {
-                if (s.StartsWith("!!CITYCODE"))
+                if (s.StartsWith("!!CI"))
                 {
                     CITY = true;
                     return;
                 }
-                if (s.StartsWith("!!SENSORNO"))
+                if (s.StartsWith("!!SE"))
                 {
                     TERM = true;
                     return;
                 }
-                if (s.StartsWith("!!ATTACH"))
+                if (s.StartsWith("!!ATT"))
                 {
                     toolStripStatusLabel1.Text = "LTE接続テスト開始 [強制終了45秒]";
                     this.Update();
                     return;
                 }
-                if (s.StartsWith("OK"))
+                if (s.StartsWith("OK")) //startwith
                 {
                     if (CITY == true)
                     {
@@ -674,7 +675,7 @@ namespace MW_001用設定変更ソフトウェア
                         return;
                     }
                 }
-                if (s.StartsWith("CITYCODE="))
+                if (s.StartsWith("CIT"))
                 {
                     string CCODE;
                     string SENNO;
@@ -711,7 +712,7 @@ namespace MW_001用設定変更ソフトウェア
                         return;
                     }
                 }
-                if (s.StartsWith("ATTACH"))
+                if (s.StartsWith("ATT"))
                 {
                     string WORD;
                     WORD = s;
@@ -723,7 +724,7 @@ namespace MW_001用設定変更ソフトウェア
                         //Console.WriteLine(WORD);
                         this.Update();
                         LOG.WriteLine(toolStripStatusLabel1.Text);　//ATTACH
-                        System.Threading.Thread.Sleep(750);
+                        System.Threading.Thread.Sleep(500);
                         TestReading = false;
                         return;
                     }
