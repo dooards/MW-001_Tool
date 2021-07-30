@@ -129,6 +129,10 @@
             this.label5.TabIndex = 19;
             this.label5.Text = "水位計IDファイル";
             // 
+            // serialPort1
+            // 
+            this.serialPort1.ReadBufferSize = 8192;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox1);
