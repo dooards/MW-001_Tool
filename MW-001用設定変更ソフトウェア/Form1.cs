@@ -493,7 +493,7 @@ namespace MW_001用設定変更ソフトウェア
                             TimeSpan ts = endDT - startDT;
                             //Console.WriteLine(ts);
 
-                            if (ts.TotalSeconds > 10)
+                            if (ts.TotalSeconds > 15)
                             {
                                 string eName = "書込みタイムアウト　アプリを閉じて最初から実施して下さい。";
                                 ForErrorStop(eName, 40, false, false);
@@ -561,7 +561,7 @@ namespace MW_001用設定変更ソフトウェア
             else
             {
                 //ケーブルが抜け　ファイル読み込み後
-                ForErrorStop("途中停止しました(3)。アプリを閉じて最初から実施して下さい。", 0, false, false);
+                ForErrorStop("途中停止しました(4)。アプリを閉じて最初から実施して下さい。", 0, false, false);
                 return;
             }
         }
@@ -675,7 +675,7 @@ namespace MW_001用設定変更ソフトウェア
                         return;
                     }
                 }
-                if (s.StartsWith("CIT"))
+                if (s.StartsWith("CITYCODE=" + textBox_city.Text))
                 {
                     string CCODE;
                     string SENNO;
